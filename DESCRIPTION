@@ -1,8 +1,8 @@
 Package: cheddar
 Type: Package
 Title: Analysis and visualisation of ecological communities
-Version: 0.1-613
-Date: 2012-07-16
+Version: 0.1-614
+Date: 2012-07-23
 Author: Lawrence Hudson with contributions from Dan Reuman and Rob
         Emmerson
 Maintainer: Lawrence Hudson <lawrence.hudson08@imperial.ac.uk>
@@ -14,6 +14,6 @@ Description: Cheddar provides a flexible, extendable representation of
         environmental, temporal or spatial gradients.
 License: BSD
 LazyLoad: yes
-Packaged: 2012-07-16 16:50:07 UTC; lawrencehudson
+Packaged: 2012-07-23 09:00:32 UTC; lawrencehudson
 Repository: CRAN
-Date/Publication: 2012-07-17 06:02:58
+Date/Publication: 2012-07-23 10:26:26

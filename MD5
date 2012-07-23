@@ -1,4 +1,4 @@
-de0dc00a342a4c38de1065a7aeb2a0e7 *DESCRIPTION
+8288bc6c8c9083cdb072c40f08303d3f *DESCRIPTION
 ac1dc66f161723e60beda93c99e74b41 *NAMESPACE
 e872c1e064279377ea65742dd0a05c7a *R/aggregate.R
 507edf928f564d42aab3a4a2516ef60b *R/chains.R
@@ -20,11 +20,11 @@ ce17b36828655385112a334d309c0409 *data/TL86.RData
 f9b06c0bbc02af2b0712ceaa7564812e *data/YthanEstuary.RData
 548500ed3694d3038b20f84be4dcd708 *data/pHWebs.RData
 ad1827ed1431d4aac6835fec3de95a42 *inst/doc/CheddarQuickstart.Rnw
-77489bae871fa2f3892351eacd8626eb *inst/doc/CheddarQuickstart.pdf
+498d461ef8e075375d50717ae27718ee *inst/doc/CheddarQuickstart.pdf
 e86b104703688ec98173ab62715a0be2 *inst/doc/Collections.Rnw
-3057406a6b753da526274f734d825426 *inst/doc/Collections.pdf
+4e16b34daad54ef09277bf497bae735e *inst/doc/Collections.pdf
 be6e8e488e38cd6325b812cb9ae50b1b *inst/doc/Community.Rnw
-d1161184f733223604a9f825a77b2cc5 *inst/doc/Community.pdf
+bd05e7a6b6bdeb35abe24ac52b126890 *inst/doc/Community.pdf
 57f768b5822188988d0481d9cddd4158 *inst/doc/Grassland1994/communities/Plot1/nodes.csv
 60f8b34a837e78a964c08f5f9a835f4f *inst/doc/Grassland1994/communities/Plot1/properties.csv
 fd02632017a4ce0d77a69bb3df172104 *inst/doc/Grassland1994/communities/Plot1/trophic.links.csv
@@ -35,9 +35,9 @@ a0b447a101fb2c66a76990b6cd66e0bd *inst/doc/Grassland1994/communities/Plot2/prope
 1721aeb609d8d28ab5e3de6cfb8c7f0d *inst/doc/Grassland1994/communities/Plot3/properties.csv
 070b66dfca0bd6d13bb51c3c1f6c4179 *inst/doc/Grassland1994/communities/Plot3/trophic.links.csv
 6163be4a172e8e58374430de6d3f4bfe *inst/doc/ImportExport.Rnw
-66c595a045c9bf7a9fb1442ca22d8cd3 *inst/doc/ImportExport.pdf
+a42947a94a30b090ca0e6938944047a1 *inst/doc/ImportExport.pdf
 8eca7f911c116b6afc7acaf8bf5365ec *inst/doc/PlotsAndStats.Rnw
-380bd34cf1eec89d9d91333eda39d611 *inst/doc/PlotsAndStats.pdf
+9917785de7cf8d86afa86563b0d8af2c *inst/doc/PlotsAndStats.pdf
 4b36655ddb1f3a5aefab914462e9a635 *inst/doc/Stream12/nodes.csv
 81c47de836c416e332afb743f798a01e *inst/doc/Stream12/properties.csv
 927ed9fc37a1f8ad580149ac279aa1a8 *inst/doc/Stream12/trophic.links.csv
@@ -108,12 +108,12 @@ f5e90a4f20eed29e2c2950e2083846d3 *man/TrophicLevels.Rd
 e08a4b086382c2c6db60bf33b0c07945 *man/TrophicLinkPropertyNames.Rd
 5371603e7963f5ea90f2c0d1f4523fac *man/TrophicSpecies.Rd
 e76b10a52583aafea53dad116d1d2efb *man/YthanEstuary.Rd
-051c179c43a2eb86af83b32b715a3b74 *man/cheddar-package.Rd
+b47e0bffabbdde3165ab5134dbf7968d *man/cheddar-package.Rd
 20fccdd0488cd75049caf8b2a3def809 *man/pHWebs.Rd
 5d23d6500d84c42e3857ec9dbe991819 *man/subset.CommunityCollection.Rd
 4363a63a83534f8f0fbef0513b6f1108 *src/anneal.cpp
 e3ce31504135afbe5d4401386084ad4e *src/cheddar_exception.h
-ae6fc0c83c077315c96d71a776ae537e *src/shortest_paths.cpp
+0fa14298d3e78f16b54605161187832d *src/shortest_paths.cpp
 0d8cb0a51f645b510afacefae6dc4855 *src/trophic_chains.cpp
 d41d8cd98f00b204e9800998ecf8427e *tests/aggregate_test.R
 d41d8cd98f00b204e9800998ecf8427e *tests/chains_test.R
