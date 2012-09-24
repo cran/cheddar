@@ -5,6 +5,8 @@
 \usepackage[authoryear,round]{natbib}
 \usepackage{booktabs}           % Some macros to improve tables
 \usepackage{amsfonts}           % /checkmark
+\usepackage{url}
+\usepackage[none]{hyphenat}     % No hyphens
 
 %\VignetteIndexEntry{Cheddar plots and statistics}
 %\VignetteKeyword{food web,body mass,numerical abundance,community,allometry}
@@ -13,6 +15,8 @@
 \newcommand{\R}{\textsf{R} }
 
 \begin{document}
+
+\sloppy    % Prevent hyphenated words running into margins
 
 \title{Cheddar plots and statistics 
        (\Sexpr{packageDescription('cheddar', fields='Version')})}
@@ -378,20 +382,21 @@ colours.
 PlotNvM(TL84, colour.by='resolved.to', pch=19, highlight.nodes=NULL)
 @
 \end{center}
-The node shown in red is described as `Unclassified flagellates' in the 
-\code{TL84} dataset.
 
 \newpage
 \noindent We can improve on this by showing each level of taxonomic resolution 
 in a specific colour by providing the `colour.spec' parameter.
 \begin{center}
 <<fig=TRUE>>=
-colour.spec <- c(Species='purple3', Genus='green3', Group='red3')
+colour.spec <- c(Species='purple3', Genus='green3', 'red3')
 PlotNvM(TL84, colour.by='resolved.to', colour.spec=colour.spec, pch=19, 
         highlight.nodes=NULL)
 legend("topright", legend=names(colour.spec), pch=19, col=colour.spec)
 @
 \end{center}
+The `Unclassified flagellates' node does not have a taxonomic resolution. This 
+node is matched by the unnamed value in \code{colour.spec} and so is shown in 
+red.
 
 \newpage
 \noindent The example below uses the `kingdom' level of classification 
@@ -412,9 +417,35 @@ legend("topright", legend=names(colour.spec), pch=symbol.spec,
        col=colour.spec, pt.bg=colour.spec)
 @
 \end{center}
-The black circle is for the `Unclassified flagellates' node. This node 
-does not have any associated classification and is matched by the unnamed 
-values in \code{symbol.spec} and \code{colour.spec}.
+The `Unclassified flagellates' node does not have a classification so is 
+matched by the unnamed values in \code{symbol.spec} and \code{colour.spec} and 
+is shown by a black circle.
+
+\newpage
+\noindent We can fit and plot linear regressions for each kingdom by using the 
+\code{NvMLinearRegressions} and \code{PlotLinearModels} functions. The food 
+web is not shown in this plot to make the regression lines clearer.
+\begin{center}
+<<fig=TRUE>>=
+symbol.spec = c(Bacteria=21, Plantae=22, Chromista=23, 
+                Protozoa=24, Animalia=25, 19)
+colour.spec = c(Bacteria='purple3', Plantae='green3', 
+                Chromista='blue3', Protozoa='orange3', 
+                Animalia='red3', 'black')
+PlotNvM(TL84, 
+        symbol.by='kingdom', symbol.spec=symbol.spec, 
+        bg.by='kingdom', bg.spec=colour.spec, 
+        colour.by='kingdom', colour.spec=colour.spec, 
+        highlight.nodes=NULL, show.web=FALSE)
+legend("topright", legend=names(colour.spec), pch=symbol.spec, 
+       col=colour.spec, pt.bg=colour.spec)
+models <- NvMLinearRegressions(TL84, class='kingdom')
+colours <- PlotLinearModels(models, colour.spec=colour.spec)
+@
+\end{center}
+The model fitted through all data points is matched by the empty value in 
+\code{colour.spec} so is drawn in black. \code{NvMLinearRegressions} is 
+described in more detail in Section \ref{sec:n_v_m}.
 
 \newpage
 \noindent You can use \code{pch=NA} to turn off symbols and just show the food 
@@ -509,20 +540,29 @@ primary consumers in many communities, have no clearly-defined $M$
 or $N$. Many datasets will therefore contain food-web nodes that lack 
 one or more properties, for example Ythan Estuary dataset has a large 
 number of primary consumers that depend upon detritus, which has no $M$ or $N$. 
-\code{PlotNPS} (and hence all the high-level functions that use it) places 
-nodes without a property at the lowest extent of the relevant axis. The plot 
-of $\log_{10}(N)$-versus-$\log_{10}(M)$ below shows detritus at the 
-bottom-left of the plot.
+\code{PlotNPS}, and hence the higher-level functions that use it, will place 
+nodes without a property at the lowest extent of the relevant axis if the 
+`show.na' parameter is \code{TRUE}. The \code{PlotNvM}, \code{PlotMvN}, 
+\code{PlotBvM} and \code{PlotMvB} functions all set `show.na' to \code{TRUE} by 
+default. All other functions that delegate to \code{PlotNPS} set `show.na' to 
+\code{FALSE} by default. The first of the $\log_{10}(N)$-versus-$\log_{10}(M)$ 
+plots below show detritus at the bottom-left of the plot.
+\SweaveOpts{width=8,height=4}
+\setkeys{Gin}{width=\textwidth}
 \begin{center}
 <<fig=TRUE>>=
 data(YthanEstuary)
+par(mfrow=c(1,2))
 PlotNvM(YthanEstuary)
+PlotNvM(YthanEstuary, show.na=FALSE)
 @
 \end{center}
 
 \newpage
 \noindent The location of the detritus node is determined by the extent of the 
 data, or by the axes limits, if given.
+\SweaveOpts{width=6,height=6}
+\setkeys{Gin}{width=0.5\textwidth}
 \begin{center}
 <<fig=TRUE>>=
 PlotNvM(YthanEstuary, xlim=c(-10, 4), ylim=c(-10, 13))
@@ -565,13 +605,29 @@ PlotNvM(Community(nodes=np, trophic.links=TLPS(TL84), properties=CPS(TL84)),
 \end{center}
 
 \newpage
+\noindent The \code{PlotMvRankM} function delegates work to \code{PlotNPS}. The 
+behaviour of `show.na' for \code{PlotMvRankM} is shown below. The left-hand 
+plot does not show the detritus node whereas the right-hand plot shows it as a 
+grey circle.
+\SweaveOpts{width=8,height=4}
+\setkeys{Gin}{width=\textwidth}
+\begin{center}
+<<fig=TRUE>>=
+data(YthanEstuary)
+par(mfrow=c(1,2))
+PlotMvRankM(YthanEstuary)
+PlotMvRankM(YthanEstuary, show.na=TRUE)
+@
+\end{center}
+
+\newpage
 \section{Plotting trophic-link properties}
 \subsection{\code{PlotTLPS}}
-\code{PlotTLPS} (for Plot Trophic-Link PropertieS) plots one trophic-link 
-property against another. Every Cheddar function that plots a point per 
-trophic link delegates the job of plotting to \code{PlotTLPS} and all of its 
-power and flexibility are available to all of the functions discussed in this 
-section.
+\code{PlotTLPS} (for \textbf{Plot} \textbf{T}rophic-\textbf{L}ink 
+\textbf{P}ropertie\textbf{S}) plots one trophic-link property against another. 
+Every Cheddar function that plots a point per trophic link delegates the job 
+of plotting to \code{PlotTLPS} and all of its power and flexibility are 
+available to all of the functions discussed in this section.
 
 \code{PlotTLPS} accepts the names of properties to plot on the x and 
 y axes. These can be both `first-class' and computed properties of trophic 
@@ -581,6 +637,8 @@ either `resource.' or `consumer.' then the remainder of the name is assumed to
 be a node property. For example, to plot $\log_{10}(M)$ of consumers 
 against $\log_{10}(M)$ of consumers we can use the helper function 
 \code{Log10M}.
+\SweaveOpts{width=6,height=6}
+\setkeys{Gin}{width=0.5\textwidth}
 \begin{center}
 <<fig=TRUE>>=
 PlotTLPS(TL84, 'resource.Log10M', 'consumer.Log10M')
@@ -631,7 +689,7 @@ community being plotted has a node property called `category' the function
 uses `resource.category' to decide plotting colours and symbols using 
 the specifications given in \code{DefaultCategoryColours} and 
 \code{DefaultCategorySymbols}, as shown by this plot of 
-consumer-versus-resource $\log_{10}$-transormed body mass:
+consumer-versus-resource $\log_{10}$-transormed body mass.
 \begin{center}
 <<fig=TRUE>>=
 PlotMRvMC(TL84)
@@ -652,7 +710,34 @@ point. See the section for `bg' in the help page for the \R \code{par}
 function for more information.
 
 \newpage
+\section{Values by class}
+Cheddar provides functions that compute values over classes of nodes. For 
+example, we can examine the total $M$, $N$ and biomass in each category.
+<<>>=
+SumMByClass(TL84)
+SumNByClass(TL84)
+SumBiomassByClass(TL84)
+@
+These functions can show the sums by any property of the community so we 
+could look at the same totals by kingdom. 
+<<>>=
+SumMByClass(TL84, 'kingdom')
+SumNByClass(TL84, 'kingdom')
+SumBiomassByClass(TL84, 'kingdom')
+@
+The `Unclassified flagellates' node does not have a kingdom, and the 
+resulting value is labelled `<unnamed>'. These convenience functions are 
+`wrappers' around the more general-purpose \code{ApplyByClass} function. 
+The following two calls produce the same result.
+<<>>=
+SumBiomassByClass(TL84)
+ApplyByClass(TL84, 'Biomass', 'category', sum)
+@
+See the help page for \code{ApplyByClass} for more examples.
+
+\newpage
 \section{$\log_{10}(N)$-versus-$\log_{10}(M)$ statistics}
+\label{sec:n_v_m}
 Cheddar contains some helper functions that assist in the commonly-performed 
 $\log_{10}(N)$-versus-$\log_{10}(M)$ statistics. 
 \code{NvMLinearRegressions} returns a list of linear regressions through 
@@ -667,9 +752,6 @@ You can extract the slopes and intercepts for each of these regression models.
 <<>>=
 sapply(models, 'coef')
 @
-The \code{PlotLinearModels} functions adds lines for each regression to 
-an existing plot of $\log_{10}(N)$-versus-$\log_{10}(M)$. See the `Plots' 
-vignette for an example of \code{PlotLinearModels}.
 The `class' parameter defines the sets of nodes to which 
 \code{NvMLinearRegressions} fits regressions. This defaults to `category', if 
 this is present in the community. You can set the `class' parameter to fit 
@@ -679,17 +761,49 @@ shown below.
 models <- NvMLinearRegressions(TL84, class='phylum')
 names(models)
 @
-The \code{NvMSlope} helper function returns the slope of an ordinary linear 
+The `<unnamed>' label refers to a model fitted to nodes that do not have a 
+phylum - just the `unclassifified flagellates' node in this case. 
+It is not possible to fit a linear regression to a single data point and 
+\code{NvMLinearRegressions} returns \code{NULL} for classes that contain just 
+a single node. The data contain one node in phylum Euglenozoa and one node 
+without a phylum, so these entries are \code{NULL}.
+<<>>=
+sapply(models, is.null)
+@
+\code{NvMLinearRegressions} also returns \code{NULL} for classes where all or 
+all bar one of the nodes have $M$ and/or $M$ of \code{NA}. The Broadstone 
+stream dataset contains detrital and algal nodes that all lack both $M$ and 
+$N$; these nodes are in the <unnamed> category.
+<<>>=
+data(BroadstoneStream)
+models <- NvMLinearRegressions(BroadstoneStream)
+sapply(models, is.null)
+@
+Three helper functions return the slope and/or intercept of an ordinary linear 
 regression through all data.
 <<>>=
 NvMSlope(TL84)
+NvMIntercept(TL84)
+NvMSlopeAndIntercept(TL84)
+@
+Three more helper functions extract these coefficients for each class.
+<<>>=
+NvMSlopeByClass(TL84)
+NvMInterceptByClass(TL84)
+NvMSlopeAndInterceptByClass(TL84)
+@
+You can fit regressions to whatever class you like.
+<<>>=
+NvMSlopeByClass(TL84, class='kingdom')
+NvMInterceptByClass(TL84, class='kingdom')
+NvMSlopeAndInterceptByClass(TL84, class='kingdom')
 @
 
 \newpage
 \section{Tri-trophic statistics}
 \cite{CohenEtAl2009PNAS} proposed a novel analysis that 
 simultaneously considers body mass, $M$, numerical abundance, $N$, and the 
-community's food web. The \code{NvMTriTrophicStatistics} provides this 
+community's food web. The \code{NvMTriTrophicStatistics} function provides this 
 analysis. It takes a single community as its only parameter. Cannibalistic 
 links and all nodes with an $N$ or $M$ of \code{NA} are removed before 
 statistics are computed. It returns a list containing three matrices: `links', 
@@ -898,7 +1012,7 @@ which the resource has a larger body mass than the consumer.
 data(BroadstoneStream)
 par(mfrow=c(1,2))
 PlotMvN(BroadstoneStream, show.nodes.as='labels', label.cex=0.8, 
-        xlim=c(-2, 4.2), ylim=c(-6,2), main='', 
+        xlim=c(-2, 4.2), ylim=c(-6,2), main='', show.na=FALSE, 
         highlight.links=NULL)
 abline(a=0, b=-1)
 
@@ -906,7 +1020,7 @@ tlps <- TLPS(BroadstoneStream, node.properties='M')
 lty <- rep(0, NumberOfTrophicLinks(BroadstoneStream))
 lty[tlps$resource.M > tlps$consumer.M] <- 1
 PlotMvN(BroadstoneStream, show.nodes.as='labels', label.cex=0.8, 
-        xlim=c(-2, 4.2), ylim=c(-6,2), main='', 
+        xlim=c(-2, 4.2), ylim=c(-6,2), main='', show.na=FALSE, 
         highlight.links=NULL, link.lty=lty)
 abline(a=0, b=-1)
 title(main='Woodward et al. (2005) AER, Fig. 4 (p 108)', outer=TRUE)

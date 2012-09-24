@@ -69,6 +69,15 @@ c7 <- Community(properties=list(title='Test'),
                 trophic.links=data.frame(resource=c('A', 'A', 'B', 'C', 'D'), 
                                          consumer=c('A', 'B', 'C', 'C', 'D')))
 
+# 10 species with different categories
+c8 <- Community(nodes=data.frame(node=paste('Species', 1:8), 
+                                 M=c(10,  9,  5, 0.1, 0.2, 0.3, 1, 2),
+                                 N=c(10, 1,  21, 900, 500, 100, 1, 5),
+                                 category=c(rep('vert.endo', 3), 
+                                            rep('', 3),
+                                            rep('vert.ecto', 2))),
+                properties=list(title='c7', M.units='g', N.units='m^-3'))
+
 RunTests <- function(tests)
 {
     # tests should be a vector of function names
@@ -83,20 +92,7 @@ RunTests <- function(tests)
         for(test in tests)
         {
             cat(paste('Running [', test, ']\n', sep=''))
-            res <- tryCatch(do.call(test, args=list()), error=function(e) e)
-            if(!is.null(res))
-            {
-                # Strip whitespace from error message
-                res <- gsub('\n', '', res)
-                cat(paste('[', test, '] raised unexpected error [', res, ']\n', 
-                    sep=''))
-                traceback()
-                failed <- c(failed, test)
-            }
-            else
-            {
-                
-            }
+            do.call(test, args=list())
         }
 
         cat(paste(length(tests), 'tests ran.\n'))

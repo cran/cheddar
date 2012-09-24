@@ -511,16 +511,19 @@ CPS <- function(community, properties=NULL)
 
 HasM <- function(community)
 {
+    if(!is.Community(community)) stop('Not a Community')
     return ('M' %in% NodePropertyNames(community))
 }
 
 HasN <- function(community)
 {
+    if(!is.Community(community)) stop('Not a Community')
     return ('N' %in% NodePropertyNames(community))
 }
 
 HasTrophicLinks <- function(community)
 {
+    if(!is.Community(community)) stop('Not a Community')
     return (!is.null(TLPS(community)))
 }
 
@@ -528,7 +531,7 @@ HasTrophicLinks <- function(community)
 {
     if(!HasM(community))
     {
-        stop('This function .Requires body mass (M) data')
+        stop('This function requires body mass (M) data')
     }
 }
 
@@ -536,7 +539,7 @@ HasTrophicLinks <- function(community)
 {
     if(!HasN(community))
     {
-        stop('This function .Requires abundance (N) data')
+        stop('This function requires abundance (N) data')
     }
 }
 
@@ -544,7 +547,7 @@ HasTrophicLinks <- function(community)
 {
     if(!HasTrophicLinks(community))
     {
-        stop('This function .Requires trophic links')
+        stop('This function requires trophic links')
     }
 }
 
@@ -966,6 +969,7 @@ ApplyByClass <- function(community, property, class, fn, ...)
     stopifnot(!all(is.na(class)))
     np <- NPS(community, property)[, property]
     res <- tapply(np, class, fn, ...)
+    names(res)[names(res)==''] <- .UnnamedString()
     return(do.call("c", list(res)))
 }
 
@@ -976,11 +980,6 @@ LinearRegressionByClass <- function(community, X, Y, class)
     # Points with x and/or y of NA are ignored.
 
     if(!is.Community(community)) stop('Not a Community')
-
-    if(NumberOfNodes(community)<2)
-    {
-        return (NULL)
-    }
 
     if(missing(class) && 'category' %in% NodePropertyNames(community))
     {
@@ -996,10 +995,6 @@ LinearRegressionByClass <- function(community, X, Y, class)
     stopifnot(length(Y)==NumberOfNodes(community))
 
     include <- which(!is.na(X) & !is.na(Y))
-    if(0==length(include))
-    {
-        return (NULL)
-    }
 
     DoLM <- function(indices)
     {
@@ -1024,13 +1019,25 @@ LinearRegressionByClass <- function(community, X, Y, class)
         if(length(indices)>1)
         {
             model <- DoLM(indices)
-            if(!is.null(model))
+            if(is.null(model))
+            {
+                # R's nasty treatment of NULL in lists
+                models[1+length(models)] <- list(NULL)
+            }
+            else
             {
                 models[[1+length(models)]] <- model
-                names(models)[length(models)] <- klass
             }
         }
+        else
+        {
+            models[1+length(models)] <- list(NULL)
+        }
+
+        names(models)[length(models)] <- klass
     }
+
+    names(models)[''==names(models)] <- .UnnamedString()
 
     return (models)
 }

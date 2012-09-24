@@ -23,17 +23,19 @@
         {
             # A named vector that is a mapping from property values to 
             # graphical parameter values.
-            # Property values that are 0, empty string or NA match unnamed 
-            # values in spec.
+            # Property values that are 0, empty string, .UnnamedString() or NA 
+            # match unnamed values in spec.
             stopifnot(length(unique(names(spec)))==length(spec))
             param <- spec[property]
 
             # Fix empty 
             if(any(''==names(spec)) && 
-                   any(is.na(property) | 0==property | ''==property))
+                   any(is.na(property) | 0==property | ''==property | 
+                       property==.UnnamedString()))
             {
                 d <- which(''==names(spec))
-                param[is.na(property) | 0==property | ''==property] <- spec[d]
+                param[is.na(property) | 0==property | ''==property | 
+                      property==.UnnamedString()] <- spec[d]
             }
 
             missing <- is.na(param)   # !property %in% names(spec)
@@ -284,62 +286,52 @@ LMabline <- function(model, ...)
 {
     # Like abline(model) but restricts the x extent of the line to the x 
     # values that the model was fitted to.
-    # TODO Error if model is not lm()
-    # TODO Error if model has more than one predictor
-    if(TRUE)
+
+    if(!is.null(model))
     {
-        # Works
+        if('lm'!=class(model)) stop('Not an lm object')
+        # TODO Error if model is not an ordinary linear regression
+
         x <- model$model[, 2]
         y <- fitted(model)
         y <- c(y[which(x==min(x))[1]], y[which(x==max(x))[1]])
         lines(range(x), y, ...)
     }
-    else
-    {
-        # Breaks if the predictor has a 'funny' name, such as log10(S)
-        x <- range(model$model[, 2])
-        newdata <- list(x)
-        names(newdata) <- names(model$model)[2]
-        lines(x, predict(model, newdata), ...)
-    }
 }
 
-PlotLinearModels <- function(models, colour.spec, col=NULL, ...)
+PlotLinearModels <- function(models, colour.spec, col, ...)
 {
     # A helper that plots the list of models using LMabline(). List elements 
     # can be NULL. Returns a vector of colours used for each model.
 
+    # If col is missing then colour.spec is used to provide colours using the 
+    # names of the models list.
+    # If col is missing and colour.spec is missing, DefaultCategoryColours()
+    # if all of the model names are in the DefaultCategoryColours() names or 
+    # are '', 'all' or .UnnamedString().
+
     if('lm'==class(models))
     {
-        models <- list(models)
+        models <- list(all==models)
     }
 
     stopifnot('list'==class(models))
 
-    # Remove NULL objects
-    models <- models[!sapply(models, is.null)]
-
-    # A list of models produced by LinearRegressions() has an 'all' model.
     model.name <- names(models)
 
-    if(is.null(col))
+    if(missing(col))
     {
-        # Use the default category colours if appropriate
-        default.colour.spec <- DefaultCategoryColours()
         if(missing(colour.spec))
         {
-            if(all(model.name %in% names(default.colour.spec) | 
-                   'all'==model.name))
-            {
-                colour.spec <- default.colour.spec
-            }
-            else
-            {
-                colour.spec <- NULL
-            }
+            # Use the default category colours if no spec provided
+            colour.spec <- DefaultCategoryColours()
         }
 
-        if('all' %in% model.name && !'all' %in% names(colour.spec))
+        # A list of linear models fitted by LinearRegressionsByClass() 
+        # will have an 'all' model that has been fitted to all data points.
+        # TODO This feels like a bit of a hack - find a better solution.
+        if('all' %in% model.name && !'all' %in% names(colour.spec) && 
+           '' %in% names(colour.spec))
         {
             model.name['all'==model.name] <- ''
         }

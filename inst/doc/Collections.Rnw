@@ -4,6 +4,8 @@
 \usepackage{amsmath}            % /eqref
 \usepackage[authoryear,round]{natbib}
 \usepackage{booktabs}           % Some macros to improve tables
+\usepackage{url}
+\usepackage[none]{hyphenat}     % No hyphens
 
 %\VignetteIndexEntry{Collections of communities}
 %\VignetteKeyword{food web,body mass,numerical abundance,community,allometry}
@@ -12,6 +14,8 @@
 \newcommand{\R}{\textsf{R} }
 
 \begin{document}
+
+\sloppy    % Prevent hyphenated words running into margins
 
 \title{Working with collections of communities 
        (\Sexpr{packageDescription('cheddar', fields='Version')})}
@@ -57,8 +61,8 @@ Cheddar contains some published empirical food web collection datasets
       \toprule
         Community         & Notes                                                 & References                            \\
       \midrule
-        \code{Millstream} & The control and drought treatments from one replicate & \cite{LedgerEtAl2008Oecologia}        \\
-                          & of a long-running study investigating how drought     & \cite{LedgerEtAl2011GlobChangeBiol}   \\
+        \code{Millstream} & The control and drought treatments from one replicate & \cite{LedgerEtAl2011GlobChangeBiol}   \\
+                          & of a long-running study investigating how drought     & \cite{LedgerEtAl2012NatureClimChange} \\
                           & affects community structure                           & \cite{WoodwardEtAl2012PhilTransRSocB} \\
         \code{pHWebs}     & Ten of the twenty stream communities sampled across a & \cite{LayerEtAl2010AER}               \\
                           & wide pH gradient                                      &                                       \\
@@ -205,7 +209,9 @@ CollectionCPS(pHWebs, c('pH',
 @
 The functions in the above examples each return a single value. Functions 
 are permitted to return more than one value, such as \code{SumBiomassByClass}, 
-which returns the total biomass in each class, which defaults to `category'.
+which returns the total biomass in each class; the default class is `category'. 
+Some pHWebs communities contain nodes (detritus and the like) that do not have 
+a category. These appear in `<unnamed>'.
 <<>>=
 CollectionCPS(pHWebs, c('pH',
                         S='NumberOfNodes',
@@ -223,6 +229,21 @@ CollectionCPS(pHWebs, c('pH',
                         C='DirectedConnectance',
                         Slope='NvMSlope',
                         B='SumBiomassByClass'))
+@
+The Old Lodge, Allt a'Mharcaidh and Mill Stream communities each have some 
+invertebrates without $M$ and/or $N$ either because not enough individuals 
+could be sampled to computed these properties reliably or because no data 
+could be found in the literature. The biomasses for these nodes is \code{NA} 
+and the summed biomasses for invertebrates in Old Lodge, Allt a'Mharcaidh and 
+Mill Stream are therefore \code{NA}. We can ignore missing values by setting 
+the `na.rm' parameter.
+<<>>=
+CollectionCPS(pHWebs, list('pH',
+                           S='NumberOfNodes',
+                           L='NumberOfTrophicLinks', 
+                           C='DirectedConnectance',
+                           Slope='NvMSlope',
+                           B=list('SumBiomassByClass', na.rm=TRUE)))
 @
 The example below shows a table of `node connectivity' for each community.
 <<>>=
@@ -275,7 +296,7 @@ every trophic link in every community:
 <<>>=
 head(CollectionTLPS(pHWebs))
 @
-Community names and resource and consumer M:
+Community names and resource and consumer $M$:
 <<>>=
 head(CollectionTLPS(pHWebs, 'M'))
 @
@@ -373,29 +394,34 @@ plot(pHWebs, plot.fn=PlotTLPS, X='consumer.Log10M',
 
 \newpage
 \section{Modifying communities}
-As mentioned previously, collections cannot be modified directly because 
-many checks for data consistency are run when collections are constructed 
-(Section \ref{sec:basic_operations}). However, the function 
-\code{CollectionApply} is provided to assist with modifying collections.
-For example, with certain analyses it can be desirable to remove isolated nodes.
+The \code{CollectionApply} function allows communities within collections to 
+be modified. For example, with certain analyses it can be desirable to remove 
+isolated nodes.
 <<>>=
+# Bere Stream has some isolated nodes
 CollectionCPS(pHWebs, 'FractionIsolatedNodes')
 pHWebs.no.iso <- CollectionApply(pHWebs, RemoveIsolatedNodes)
-CollectionCPS(pHWebs.no.iso, 'FractionIsolatedNodes')
+CollectionCPS(pHWebs.no.iso, 'FractionIsolatedNodes')   # All 0
 @
 The \code{CollectionApply} function can be used with any function that 
 modifies communities, such as \code{RemoveCannibalisticLinks}.
 <<>>=
+# The number of cannibals in each community
 sapply(pHWebs, function(community) length(Cannibals(community)))
 pHWebs.no.can <- CollectionApply(pHWebs, RemoveCannibalisticLinks)
 sapply(pHWebs.no.can, function(community) length(Cannibals(community)))
 @
 The function to be applied to each community can also take additional 
-parameters. The following example reorders the nodes each community by body 
+parameters. The following example reorders each community's nodes by body 
 mass.
 <<>>=
 head(CollectionNPS(pHWebs))
 pHWebs.by.M <- CollectionApply(pHWebs, OrderCommunity, 'M')
+head(CollectionNPS(pHWebs.by.M))
+@
+We can put the nodes lacking $M$ first.
+<<>>=
+pHWebs.by.M <- CollectionApply(pHWebs, OrderCommunity, 'M', na.last=FALSE)
 head(CollectionNPS(pHWebs.by.M))
 @
 
@@ -411,12 +437,19 @@ CollectionCPS(pHWebs.decreasing.pH)
 To order alphabetically by community name.
 <<>>=
 pHWebs.name <- OrderCollection(pHWebs, 'title')
-CollectionCPS(pHWebs.name, c('pH', 'NumberOfNodes'))
+CollectionCPS(pHWebs.name)
 @
-To sort by latitude and then by pH.
+You can sort on computed properties, such as the number of nodes.
 <<>>=
-pHWebs.lat.and.pH <- OrderCollection(pHWebs, 'lat', 'pH')
-CollectionCPS(pHWebs.lat.and.pH, c('lat', 'pH'))
+pHWebs.n.nodes <- OrderCollection(pHWebs, 'NumberOfNodes')
+CollectionCPS(pHWebs.n.nodes, c('pH', 'lat', 'NumberOfNodes'))
+@
+Two communities have 21 nodes and two have 25. We can sort on more than one 
+property to break ties. This example sorts by number of nodes and the latitude 
+within number of nodes.
+<<>>=
+pHWebs.n.nodes.and.lat <- OrderCollection(pHWebs, 'NumberOfNodes', 'lat')
+CollectionCPS(pHWebs.n.nodes.and.lat, c('pH', 'lat', 'NumberOfNodes'))
 @
 
 \newpage
