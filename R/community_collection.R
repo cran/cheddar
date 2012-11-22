@@ -345,7 +345,7 @@ AggregateCommunities <- function(collection,
 
         select.cols <- !colnames(node.properties) %in% c('community', 'node')
         new.nodes <- cbind(new.nodes, 
-                       .AggregateDataFrame(data=node.properties[,select.cols],
+                       .AggregateDataFrame(data=node.properties[,select.cols,drop=FALSE],
                                            aggregate.by=node.properties$node, 
                                            weight.by=weight.by))
     }
@@ -356,7 +356,7 @@ AggregateCommunities <- function(collection,
     {
         new.tl <- new.tl[new.tl$community %in% aggregate,]
         select.cols <- !colnames(new.tl) %in% 'community'
-        new.tl <- .AggregateDataFrame(data=new.tl[,select.cols], 
+        new.tl <- .AggregateDataFrame(data=new.tl[,select.cols,drop=FALSE], 
                   aggregate.by=paste(new.tl[,'resource'],new.tl[,'consumer']),
                   weight.by=NULL)
         stopifnot(!any(duplicated(new.tl)))
@@ -369,14 +369,17 @@ AggregateCommunities <- function(collection,
     if(ncol(new.properties)>1)
     {
         select.cols <- !colnames(new.properties) %in% 'title'
-        new.properties <- .AggregateDataFrame(data=new.properties[,select.cols],
+        new.properties <- .AggregateDataFrame(data=new.properties[,select.cols,drop=FALSE],
                               aggregate.by=rep(1, nrow(new.properties)), 
                               weight.by=NULL)
+        stopifnot(1==nrow(new.properties))
+        new.properties <- do.call(list, new.properties)
+        new.properties$title <- title
     }
-
-    stopifnot(1==nrow(new.properties))
-    new.properties <- do.call(list, new.properties)
-    new.properties$title <- title
+    else
+    {
+        new.properties <- list(title=title)
+    }
 
     return (Community(nodes=new.nodes, 
                       trophic.links=new.tl, 
@@ -404,7 +407,7 @@ plot.CommunityCollection <- function(x,
     junk <- sapply(x, function(community) tryCatch(plot.fn(community, ...)))
 }
 
-LoadCollection <- function(dir)
+LoadCollection <- function(dir, ...)
 {
     # Load each community directory
     path <- file.path(dir, 'communities')
@@ -412,24 +415,32 @@ LoadCollection <- function(dir)
     {
         stop(paste('The community collection directory [', path, 
                    '] does not exist', sep=''))
-    }        
-    files <- list.files(path)
-    collection <- lapply(file.path(path, files), LoadCommunity)
+    }
+    else
+    {
+        files <- list.files(path)
+        collection <- lapply(file.path(path, files), LoadCommunity, ...)
 
-    return (CommunityCollection(collection))
+        return (CommunityCollection(collection))
+    }
 }
 
-SaveCollection <- function(collection, dir)
+SaveCollection <- function(collection, dir, ...)
 {
     if(!is.CommunityCollection(collection)) stop('Not a CommunityCollection')
-    if(!file.exists(file.path(dir, 'communities')))
+    if(file.exists(dir))
+    {
+        stop(paste('The directory [', dir, '] already exists', sep=''))
+    }
+    else
     {
         dir.create(file.path(dir, 'communities'), recursive=TRUE)
-    }
 
-    # Assignment to junk prevent result of mapply() being returned
-    junk <- mapply(SaveCommunity, community=collection, 
-                   dir=file.path(dir, 'communities', names(collection)))
+        # Assignment to junk prevents result of mapply() being returned
+        junk <- mapply(SaveCommunity, community=collection, 
+                       dir=file.path(dir, 'communities', names(collection)), 
+                       MoreArgs=list(...))
+    }
 }
 
 OrderCollection <- function(collection, ..., decreasing=FALSE)

@@ -69,6 +69,12 @@ TestCommunityBasic <- function()
                 properties=list(title='test')))
     F(Community(nodes=data.frame(node=LETTERS, consumer=LETTERS), 
                 properties=list(title='test')))
+
+    # Factors should be converted to strings
+    community <- Community(nodes=data.frame(node=LETTERS, np=letters,
+                                            stringsAsFactors=TRUE), 
+                           properties=list(title='test'))
+    stopifnot(all(sapply(NPS(community), class)=='character'))
 }
 
 TestCommunityNPS <- function()
@@ -323,6 +329,15 @@ TestCommunityTrophicLinks <- function()
         stopifnot(1==PredationMatrix(community)[res, con])
     }))
     stopifnot(all(0:1==sort(unique(as.vector(PredationMatrix(community))))))
+
+    # Factors should be converted to strings
+    community <- Community(nodes=data.frame(node=LETTERS),
+                           trophic.links=data.frame(resource=LETTERS,
+                                                    consumer=LETTERS,
+                                                    tlp=LETTERS,
+                                                    stringsAsFactors=TRUE),
+                           properties=list(title='test'))
+    stopifnot(all(sapply(TLPS(community), class)=='character'))
 }
 
 TestNodePropertyNames <- function()
@@ -478,6 +493,12 @@ TestPersistCommunity <- function()
     {
         SaveCommunity(community, path)
         stopifnot(identical(community, LoadCommunity(path)))
+        unlink(path, recursive=TRUE)
+
+        SaveCommunity(community, path, fn='write.table', sep='\t')
+        stopifnot(identical(community, 
+                            LoadCommunity(path, fn='read.table', sep='\t')))
+        unlink(path, recursive=TRUE)
     }
 }
 

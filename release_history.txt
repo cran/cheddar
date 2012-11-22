@@ -1,0 +1,67 @@
+0.1-618
+    Available on CRAN
+
+    Improvements
+        # 11 PredationMatrixToLinks requires a square predation matrix with 
+             ncol=nrow=number of nodes enhancement
+        # 12 Improvements to enumerating trophic chains
+        # 14 LoadCommunity and SaveCommunity restrict options
+
+    Bugs fixed
+        # 13 Plot pyramid functions fail for some communities
+
+0.1-617
+2012-10-25
+    Not submitted to CRAN
+
+    Bugs fixed
+        # 10 AggregateCommunities fails for certain communities
+
+0.1-616
+2012-09-24
+    Available on CRAN
+
+    Miscellaneous
+        Fixed some minor mistakes in help files
+        Added some missing journal names in vignette references
+
+0.1-615
+2012-09-24
+    Not submitted to CRAN
+
+    Bugs fixed
+     	#2 MinimiseSumDietGaps and MinimiseSumConsumerGaps returns community 
+           with incorrect title
+	    #4 Graph legend produced by FormatLM() does not show r squared 
+        correctly on a Mac
+	    #5 Columns returned by CollectionCPS() show empy categories as 'V1'
+	    #6 NvMSlopeByClass() and friends should give NA for categories where 
+           all nodes have N and/or M of NA
+
+    Improvements
+        #3 Inconsistent references style in vignettes
+	    #7 ImportExport vignette needs more export examples enhancement
+	    #8 SumMByClass(), SumNByClass() and SumBiomassByClass() do not allow 
+           user-control of NA behaviour
+        #9 PlotNPS() always shows nodes that lack X and/or Y
+
+    Miscellaneous
+        Added information about link strengths to PlotsAndStats vignette
+
+        Added genus and species node properties to communities that 
+        have classification: Broadstone, Millstream, SkipwithPond, TL84, TL86 
+        and YthanEstuary
+
+        Citeable sources for classification for Broadstone, Millstream, 
+        SkipwithPond, TL84, TL86 and YthanEstuary
+
+0.1-614
+2012-07-23
+    First release available on CRAN
+
+    Bugs fixed
+        #1 Does not build on Solaris - C99 function isfinite() not present 
+
+0.1-613
+2012-07-16
+    First release submitted to CRAN
