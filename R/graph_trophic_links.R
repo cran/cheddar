@@ -154,6 +154,8 @@ PlotTLPS <- function(community,
 PlotPredationMatrix <- function(community, 
                                 xlab='Consumer', 
                                 ylab='Resource', 
+                                resource.order, 
+                                consumer.order,
                                 ...)
 {
     # Plots the predation matrix
@@ -161,20 +163,65 @@ PlotPredationMatrix <- function(community,
 
     .RequireTrophicLinks(community)
 
-    n <- NumberOfNodes(community)
+    tlp <- TLPS(community)
+    nodes <- unname(NP(community, 'node'))
+
+    if(missing(resource.order))
+    {
+        resource.order <- nodes
+    }
+    else if(1==length(resource.order))
+    {
+        resource.order <- order(NPS(community, resource.order)[,resource.order])
+        resource.order <- nodes[resource.order]
+    }
+    else if(is.numeric(resource.order))
+    {
+        stopifnot(all(0 < resource.order & 
+                      resource.order <= NumberOfNodes(community)))
+        stopifnot(length(unique(resource.order)) == NumberOfNodes(community))
+        stopifnot(range(resource.order) == c(1, NumberOfNodes(community)))
+        resource.order <- nodes[resource.order]
+    }
+
+    if(missing(consumer.order))
+    {
+        consumer.order <- nodes
+    }
+    else if(1==length(consumer.order))
+    {
+        consumer.order <- order(NPS(community, consumer.order)[,consumer.order])
+        consumer.order <- nodes[consumer.order]
+    }
+    else if(is.numeric(consumer.order))
+    {
+        stopifnot(all(0 < consumer.order & 
+                      consumer.order <= NumberOfNodes(community)))
+        stopifnot(length(unique(consumer.order)) == NumberOfNodes(community))
+        stopifnot(range(consumer.order) == c(1, NumberOfNodes(community)))
+        consumer.order <- nodes[consumer.order]
+    }
+
+    stopifnot(sort(resource.order)==sort(nodes))
+    stopifnot(sort(consumer.order)==sort(nodes))
+    X <- sapply(tlp[,'consumer'], function(s) return (which(s==consumer.order)))
+    Y <- sapply(tlp[,'resource'], function(s) return (which(s==resource.order)))
 
     # Plot y values inverted
-    tlp <- TLPS(community)
+    n <- length(nodes)
     PlotTLPS(community, 
-             X=NodeNameIndices(community, tlp[,'consumer']), 
-             Y=1+n-NodeNameIndices(community, tlp[,'resource']),
+             X=X, 
+             Y=1+n-Y,
              xlab=xlab, ylab=ylab, 
              xlim=c(1, n), ylim=c(1, n), 
              are.values=TRUE, 
              xaxt='n', yaxt='n', ...)
 
-    # Points on this line are cannibals
-    abline(a=n+1, b=-1, lty=2)
+    if(all(resource.order==consumer.order))
+    {
+        # Points on this line are cannibals
+        abline(a=n+1, b=-1, lty=2)
+    }
 }
 
 PlotMRvMC <- function(community, 

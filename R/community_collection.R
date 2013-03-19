@@ -111,6 +111,7 @@ print.CommunityCollection <- function(x, ...)
 {
     if(!is.CommunityCollection(x)) stop('Not a CommunityCollection')
     cat(paste('A collection of', length(x), 'communities\n'))
+    invisible(x)
 }
 
 summary.CommunityCollection <- function(object, ...)
@@ -404,7 +405,10 @@ plot.CommunityCollection <- function(x,
         on.exit(par(mfcol))
     }
 
-    junk <- sapply(x, function(community) tryCatch(plot.fn(community, ...)))
+    junk <- sapply(x, function(community)
+    {
+        tryCatch(do.call(plot.fn, c(list(community), list(...))))
+    })
 }
 
 LoadCollection <- function(dir, ...)

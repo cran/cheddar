@@ -8,15 +8,19 @@ Cheddar provides a flexible, extendable representation of an ecological
 community and a range of functions for analysis and visualisation, focusing 
 on food web, body mass and numerical abundance data. It also allows inter-web 
 comparisons such as examining changes in community structure over 
-environmental, temporal or spatial gradients.
+environmental, temporal or spatial gradients. 
+
+Details of differences between versions of Cheddar are in the the online 
+release history:
+\href{https://github.com/quicklizard99/cheddar/blob/master/release_history.md}{https://github.com/quicklizard99/cheddar/blob/master/release_history.md}.
 }
 
 \details{
     \tabular{ll}{
     Package: \tab cheddar\cr
     Type: \tab Package\cr
-    Version: \tab 0.1-619\cr
-    Date: \tab 2012-11-22\cr
+    Version: \tab 0.1-622\cr
+    Date: \tab 2013-03-19\cr
     License: \tab BSD\cr
     }
 }

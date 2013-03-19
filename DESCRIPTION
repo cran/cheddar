@@ -1,8 +1,8 @@
 Package: cheddar
 Type: Package
 Title: Analysis and visualisation of ecological communities
-Version: 0.1-619
-Date: 2012-11-22
+Version: 0.1-622
+Date: 2013-03-19
 Author: Lawrence Hudson with contributions from Dan Reuman and Rob
         Emerson
 Maintainer: Lawrence Hudson <lawrence.hudson08@imperial.ac.uk>
@@ -16,6 +16,7 @@ License: BSD
 LazyLoad: yes
 URL: https://github.com/quicklizard99/cheddar/,
         http://quicklizard99.github.com/cheddar/
-Packaged: 2012-11-22 13:09:13 UTC; lawrence
+Packaged: 2013-03-21 17:04:17 UTC; lawrence
+NeedsCompilation: yes
 Repository: CRAN
-Date/Publication: 2012-11-23 07:52:33
+Date/Publication: 2013-03-21 18:47:47
