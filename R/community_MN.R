@@ -374,7 +374,6 @@ NvMTriTrophicStatistics <- function(community)
 .ConvexHull <- function(community, x, y)
 {
     p <- cbind(x, y)
-    rownames(p) <- NULL
     p <- p[!is.na(p[,1]) & !is.na(p[,2]),]
     hull <- chull(p)
 
@@ -387,7 +386,7 @@ NvMTriTrophicStatistics <- function(community)
 NvMConvexHull <- function(community)
 {
     if(!is.Community(community)) stop('Not a Community')
-    cheddar:::.RequireM(community)
-    cheddar:::.RequireN(community)
+    .RequireM(community)
+    .RequireN(community)
     return (.ConvexHull(community, Log10M(community), Log10N(community)))
 }

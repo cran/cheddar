@@ -126,62 +126,15 @@ TestNvMLinearRegressions <- function()
 TestNvMTriTrophic1 <- function()
 {
     # Recreates Table 1 from Cohen et al 2010 PNAS
-    # NvMTriTrophicStatistics() removes both nodes with M and/or N of NA 
-    # and cannibalistic links. I am removing these here too so that the 
-    # network statistics (L, S^2, L/S^2 and L/S) are the same as those in 
-    # Cohen et al 2010 PNAS, Table 1.
-    communities <- list(TL84, TL86, RemoveNodes(YthanEstuary, 'POM (detritus)'))
-    communities <- lapply(communities, RemoveCannibalisticLinks)
-    communities <- lapply(communities, RemoveIsolatedNodes)
+    data(TL84, TL86, YthanEstuary)
+    collection <- CommunityCollection(list(TL84, TL86, YthanEstuary))
+    table <- NvMTriTrophicTable(collection)
 
-    # Table 1
-    res <- lapply(communities, function(community)
-    {
-        community <- RemoveNodes(community, remove=with(NPS(community), node[is.na(M) | is.na(N)]))
-        community <- RemoveCannibalisticLinks(community)
-        community <- RemoveIsolatedNodes(community)
+    # Exclude the rows that include all nodes and links
+    table <- head(table, -4)
 
-        tts<-NvMTriTrophicStatistics(community)
-        lp <- tts[['links']]
-        tncp <- tts[['three.node.chains']]
-        tcp <- tts[['trophic.chains']]
-        
-        community.span <- diff(range(Log10M(community))) +
-                          diff(range(Log10N(community)))
-                          
-        wiggling <- mean(tcp$sum.chain.length) / mean(tcp$chain.span)
-
-        UnsafeMean <- function(x)
-        {
-            ifelse(is.null(x), NA, mean(x))
-        }
-
-        return (c(
-             'Mean link length'=mean(lp$length),
-             'Mean L upper'=UnsafeMean(tncp$Lupper),
-             'Mean L lower'=UnsafeMean(tncp$Llower),
-             '2 x mean link length'=2*mean(lp$length),
-             'Mean 2-span'=UnsafeMean(tncp$two.span),
-             'Mean L upper + L lower'=UnsafeMean(tncp$Lupper + tncp$Llower),
-             '2 x mean link length / mean 2-span'=2 * mean(lp$length) / UnsafeMean(tncp$two.span),
-             'Mean L upper + L lower/ mean 2-span'=UnsafeMean(tncp$Lupper + tncp$Llower) / UnsafeMean(tncp$two.span),
-             'Mean count chain length'=mean(tcp$count.chain.length),
-             'Mean count chain length x mean link length'=mean(tcp$count.chain.length)*mean(lp$length),
-             'Community span'=community.span,
-             'Mean count chain length x mean link length / community span'=mean(tcp$count.chain.length)*mean(lp$length)/community.span,
-             'Mean sum chain lengths'=mean(tcp$sum.chain.length),
-             'Mean chain span'=mean(tcp$chain.span),
-             'Mean chain span / community span'=mean(tcp$chain.span) / community.span,
-             'Mean sum chain lengths / mean chain span'=mean(tcp$sum.chain.length) / mean(tcp$chain.span),
-             'Mean sum chain lengths / community span'=mean(tcp$sum.chain.length) / community.span,
-             'L'=NumberOfTrophicLinks(community),
-             'S^2'=NumberOfNodes(community)^2,
-             'L/S^2'=DirectedConnectance(community),
-             'L/S'=LinkageDensity(community)))
-    })
-    res <- do.call('cbind', res)
-
-    colnames(res) <- c('TL84', 'TL86', 'Ythan Estuary')
+    # Check to 2 dp
+    table <- round(table, 2)
 
     # The data from the paper
     check <- matrix(c(
@@ -206,10 +159,8 @@ TestNvMTriTrophic1 <- function()
             2500.00, 2601.00, 8281.00, 
                0.11,    0.09,    0.05, 
                5.28,    4.63,    4.16), ncol=3, byrow=TRUE)
-
-    colnames(check) <- colnames(res)
-    rownames(check) <- rownames(res)
-    AssertEqual(round(res, 2), check)
+    dimnames(check) <- dimnames(table)
+    AssertEqual(table, check)
 }
 
 TestNvMTriTrophic2 <- function()
@@ -439,21 +390,20 @@ TestNvMConvexHull <- function()
     AssertEqual(0.5, cheddar:::.PolygonArea(c(0, 1, 0.5, 0), c(0, 0, 1, 0)))
     AssertEqual(1, cheddar:::.PolygonArea(c(0, 1, 1, 0, 0), c(0, 0, 1, 1, 0)))
     res <- NvMConvexHull(TL84)
-    AssertEqual(c('Phoxinus neogaeus','Keratella testudo',
-                  'Chromulina sp.','Unclassified flagellates',
-                  'Chrysosphaerella longispina',
-                  'Chaoborus punctipennis','Phoxinus eos',
-                  'Umbra limi'), 
-                res$nodes)
+    # Can't guarantee in ordering of points on the hull
+    nodes <- c('Chaoborus punctipennis','Chromulina sp.',
+               'Chrysosphaerella longispina','Keratella testudo','Phoxinus eos',
+               'Phoxinus neogaeus','Umbra limi','Unclassified flagellates')
+    AssertEqual(nodes, sort(res$nodes))
     AssertEqual(30.68266, round(res$area, 5))
-    AssertEqual(matrix(c( -2.931814, -0.8761484,
-                         -11.000000,  3.7781513,
+    AssertEqual(matrix(c( -6.522879,  4.0791812,
                          -13.518557,  8.1731863,
-                         -12.460924,  9.2741578,
                           -9.080399,  6.6020600,
-                          -6.522879,  4.0791812,
+                         -11.000000,  3.7781513,
                           -2.995679,  0.2944662,
-                          -2.889410, -0.8794261), byrow=TRUE, ncol=2), 
-                unname(round(res$points, 7)), 
+                          -2.931814, -0.8761484,
+                          -2.889410, -0.8794261,
+                         -12.460924,  9.2741578), byrow=TRUE, ncol=2), 
+                unname(round(res$points[nodes,], 7)), 
                 tolerance=1e-7)
 }
