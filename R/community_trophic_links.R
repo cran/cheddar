@@ -1247,6 +1247,7 @@ NodeQuantitativeDescriptors <- function(community, weight)
         n <- table(t[r])  # The number of resources at each trophic level
         return (-sum(vlog2v(n/sum(n))))
     })
+
     o <- -1 + 2^sapply(1:NumberOfNodes(community), function(k)
     {
         r <- res[[k]]     # Resources of k
@@ -1286,6 +1287,9 @@ QuantitativeDescriptors <- function(community, weight, top.level.threshold=0.99)
     vlog2v <- function(v)   v*log2(v)
 
     # Community-level descriptors are derived from the node-level decsriptors
+
+    # TODO prevent double-computation of chains
+
     np <- NodeQuantitativeDescriptors(community, weight)
 
     b <- PredationMatrix(community, weight)
@@ -1370,7 +1374,6 @@ QuantitativeDescriptors <- function(community, weight, top.level.threshold=0.99)
     # Weighted chain lengths, p 2399, eq 19 and 20
     tlps <- TLPS(community, link.properties=weight)
     chains <- TrophicChains(community)
-    chains.length <- ChainLength(chains)
 
     # The biomass flowing through every link in every chain
     bc <- apply(as.matrix(chains), 1, function(r)
@@ -1400,8 +1403,8 @@ QuantitativeDescriptors <- function(community, weight, top.level.threshold=0.99)
     fracTB <- with(tlps, sum(resource.IsBasalNode & consumer.IsTopLevelNode))/nrow(tlps)
     fracII <- with(tlps, sum(resource.IsIntermediateNode & consumer.IsIntermediateNode))/nrow(tlps)
     fracIB <- with(tlps, sum(resource.IsBasalNode & consumer.IsIntermediateNode))/nrow(tlps)
-    chains <- TrophicChains(community)
-    chains.length <- ChainLength(chains)
+    # This is far faster than ChainLengths
+    chains.length <- TrophicChainsStats(community)$chain.lengths
     Qualitative <- c(FractionTopLevelNodes(community), 
                      FractionIntermediateNodes(community), 
                      FractionBasalNodes(community), 

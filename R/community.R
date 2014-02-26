@@ -462,28 +462,26 @@ TLPS <- function(community, node.properties=NULL, link.properties=NULL)
         class(tlp) <- 'data.frame'
     }
 
-    res <- tlp
-    if(!is.null(res))
+    if(!is.null(tlp))
     {
         if(!is.null(link.properties))
         {
             # Include 'resource' and 'consumer'
             link.properties <- union(c('resource','consumer'), link.properties)
-            res <- .AssembleProperties(res, properties=link.properties, 
+            tlp <- .AssembleProperties(tlp, properties=link.properties, 
                                        community=community)
         }
 
         # Add node properties
-        np <- .NodePropertiesOfChains(community, chains=tlp, 
-                                      node.properties=node.properties, 
-                                      chain.columns=c('resource','consumer'))
-        if(!is.null(np))
+        if(!is.null(node.properties))
         {
-            res <- cbind(res, np)
+            tlp <- .AddNodePropertiesToChains(community, chains=tlp, 
+                                              node.properties=node.properties, 
+                                              chain.columns=c('resource','consumer'))
         }
     }
 
-    return (res)    
+    return (tlp)
 }
 
 CommunityPropertyNames <- function(community)
@@ -603,7 +601,10 @@ plot.Community <- function(x, ...)
 print.Community <- function(x, ...)
 {
     if(!is.Community(x)) stop('Not a Community')
-    cat(paste(CPS(x)$title, 'containing', NumberOfNodes(x), 'nodes.\n'))
+    n <- paste(CPS(x)$title, 'containing', NumberOfNodes(x), 'nodes')
+    ntl <- NumberOfTrophicLinks(x)
+    if(ntl>0)    n <- paste(n, 'and', ntl, 'trophic links')
+    cat(n, '\n')
     invisible(x)
 }
 
