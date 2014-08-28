@@ -909,7 +909,7 @@ ShortestPaths <- function(community, weight.by=NULL)
               lengths=lengths, 
               status=status, 
               PACKAGE='cheddar', 
-              NAOK=TRUE, DUP=FALSE)
+              NAOK=TRUE)
 
     if(0==res$status)
     {
@@ -1075,7 +1075,7 @@ SumConsumerGaps <- function(community)
                   best=best, 
                   status=status, 
                   PACKAGE='cheddar', 
-                  NAOK=TRUE, DUP=FALSE)
+                  NAOK=TRUE)
 
         if(-1==res$status)
         {
@@ -1182,7 +1182,7 @@ MeanMaximumTrophicSimilarity <- function(community)
     # MxSim = 1/S \sum_1^S max(s_{ij}) (i!=j)
     I <- TrophicSimilarity(community)
     diag(I) <- NA    # Exclude diagonal
-    return (mean(apply(I, 1, max, na.rm=TRUE)))
+    return (mean(apply(I, 2, max, na.rm=TRUE)))
 }
 
 IsOmnivore <- function(community, level=PreyAveragedTrophicLevel)
