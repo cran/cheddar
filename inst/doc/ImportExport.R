@@ -2,7 +2,7 @@
 ### Encoding: UTF-8
 
 ###################################################
-### code chunk number 1: ImportExport.Rnw:28-41
+### code chunk number 1: ImportExport.Rnw:32-45
 ###################################################
 options(warn=2)
 
@@ -20,45 +20,45 @@ options(SweaveHooks = list(fig=function() par(mgp=c(2.5,1,0),
 
 
 ###################################################
-### code chunk number 2: ImportExport.Rnw:64-65
+### code chunk number 2: ImportExport.Rnw:68-69
 ###################################################
 stream12 <- LoadCommunity('Stream12')
 
 
 ###################################################
-### code chunk number 3: ImportExport.Rnw:119-120
+### code chunk number 3: ImportExport.Rnw:123-124
 ###################################################
 cat(paste(paste(colnames(NPS(stream12)), collapse=' & '), '\\\\'))
 
 
 ###################################################
-### code chunk number 4: ImportExport.Rnw:123-125
+### code chunk number 4: ImportExport.Rnw:127-129
 ###################################################
 junk <- apply(NPS(stream12), 1, 
               function(row) cat(paste(paste(replace(row, which(is.na(row)), ''), collapse=' & '), ' \\\\ \n')))
 
 
 ###################################################
-### code chunk number 5: ImportExport.Rnw:161-162
+### code chunk number 5: ImportExport.Rnw:165-166
 ###################################################
 cat(paste(paste(colnames(TLPS(stream12)), collapse=' & '), '\\\\'))
 
 
 ###################################################
-### code chunk number 6: ImportExport.Rnw:165-167
+### code chunk number 6: ImportExport.Rnw:169-171
 ###################################################
 junk <- apply(TLPS(stream12), 1, 
               function(row) cat(paste(paste(row, collapse=' & '), ' \\\\ \n')))
 
 
 ###################################################
-### code chunk number 7: ImportExport.Rnw:185-186 (eval = FALSE)
+### code chunk number 7: ImportExport.Rnw:189-190 (eval = FALSE)
 ###################################################
 ## stream12 <- LoadCommunity('c:/Stream12')
 
 
 ###################################################
-### code chunk number 8: ImportExport.Rnw:189-192
+### code chunk number 8: ImportExport.Rnw:193-196
 ###################################################
 stream12
 NumberOfNodes(stream12)
@@ -66,7 +66,7 @@ NumberOfTrophicLinks(stream12)
 
 
 ###################################################
-### code chunk number 9: ImportExport.Rnw:195-203
+### code chunk number 9: ImportExport.Rnw:199-207
 ###################################################
 # Community properties
 CPS(stream12)
@@ -79,38 +79,38 @@ TLPS(stream12)
 
 
 ###################################################
-### code chunk number 10: ImportExport.Rnw:207-208
+### code chunk number 10: ImportExport.Rnw:211-212
 ###################################################
 SumBiomassByClass(stream12)
 
 
 ###################################################
-### code chunk number 11: ImportExport.Rnw:211-212
+### code chunk number 11: ImportExport.Rnw:215-216
 ###################################################
 SumBiomassByClass(stream12, class='functional.group')
 
 
 ###################################################
-### code chunk number 12: ImportExport.Rnw:217-218
+### code chunk number 12: ImportExport.Rnw:221-222
 ###################################################
 grassland <- LoadCollection('Grassland1994')
 
 
 ###################################################
-### code chunk number 13: ImportExport.Rnw:249-250 (eval = FALSE)
+### code chunk number 13: ImportExport.Rnw:253-254 (eval = FALSE)
 ###################################################
 ## grassland <- LoadCommunity('c:/Grassland1994')
 
 
 ###################################################
-### code chunk number 14: ImportExport.Rnw:252-254
+### code chunk number 14: ImportExport.Rnw:256-258
 ###################################################
 grassland
 length(grassland)
 
 
 ###################################################
-### code chunk number 15: ImportExport.Rnw:270-298 (eval = FALSE)
+### code chunk number 15: ImportExport.Rnw:274-302 (eval = FALSE)
 ###################################################
 ## install.packages('igraph')
 ## library(igraph)
@@ -143,7 +143,7 @@ length(grassland)
 
 
 ###################################################
-### code chunk number 16: ImportExport.Rnw:306-325 (eval = FALSE)
+### code chunk number 16: ImportExport.Rnw:310-329 (eval = FALSE)
 ###################################################
 ## install.packages("NetIndices")
 ## install.packages("foodweb", repos="http://R-Forge.R-project.org")
@@ -167,7 +167,7 @@ length(grassland)
 
 
 ###################################################
-### code chunk number 17: ImportExport.Rnw:333-351 (eval = FALSE)
+### code chunk number 17: ImportExport.Rnw:337-355 (eval = FALSE)
 ###################################################
 ## library(cheddar)
 ## 
@@ -190,7 +190,7 @@ length(grassland)
 
 
 ###################################################
-### code chunk number 18: ImportExport.Rnw:357-372 (eval = FALSE)
+### code chunk number 18: ImportExport.Rnw:361-376 (eval = FALSE)
 ###################################################
 ## install.packages("foodweb")
 ## 
