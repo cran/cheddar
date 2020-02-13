@@ -2,10 +2,8 @@
 ### Encoding: UTF-8
 
 ###################################################
-### code chunk number 1: PlotsAndStats.Rnw:33-46
+### code chunk number 1: PlotsAndStats.Rnw:33-44
 ###################################################
-options(warn=2)
-
 library(cheddar)
 
 # Makes copy-paste much less painful
@@ -20,7 +18,7 @@ options(SweaveHooks = list(fig=function() par(mgp=c(2.5,1,0),
 
 
 ###################################################
-### code chunk number 2: PlotsAndStats.Rnw:124-126
+### code chunk number 2: PlotsAndStats.Rnw:122-124
 ###################################################
 getOption("SweaveHooks")[["fig"]]()
 data(TL84)
@@ -28,21 +26,21 @@ PlotNPS(TL84, 'Log10M', 'Log10N')
 
 
 ###################################################
-### code chunk number 3: PlotsAndStats.Rnw:144-145
+### code chunk number 3: PlotsAndStats.Rnw:142-143
 ###################################################
 getOption("SweaveHooks")[["fig"]]()
 PlotNPS(TL84, 'Log10M', 'Log10N', show.web=FALSE, highlight.nodes=NULL)
 
 
 ###################################################
-### code chunk number 4: PlotsAndStats.Rnw:152-153
+### code chunk number 4: PlotsAndStats.Rnw:150-151
 ###################################################
 getOption("SweaveHooks")[["fig"]]()
 PlotNPS(TL84, 'Log10M', 'Log10N', show.nodes.as='labels', show.web=FALSE)
 
 
 ###################################################
-### code chunk number 5: PlotsAndStats.Rnw:160-162
+### code chunk number 5: PlotsAndStats.Rnw:158-160
 ###################################################
 getOption("SweaveHooks")[["fig"]]()
 PlotNPS(TL84, 'Log10M', 'Log10N', show.nodes.as='labels', show.web=FALSE, 
@@ -50,7 +48,7 @@ PlotNPS(TL84, 'Log10M', 'Log10N', show.nodes.as='labels', show.web=FALSE,
 
 
 ###################################################
-### code chunk number 6: PlotsAndStats.Rnw:168-171
+### code chunk number 6: PlotsAndStats.Rnw:166-169
 ###################################################
 getOption("SweaveHooks")[["fig"]]()
 lots.of.letters <- c(letters, LETTERS, paste(LETTERS,letters,sep=''))
@@ -59,14 +57,14 @@ PlotNPS(TL84, 'Log10M', 'Log10N', show.nodes.as='labels', show.web=FALSE,
 
 
 ###################################################
-### code chunk number 7: PlotsAndStats.Rnw:176-177
+### code chunk number 7: PlotsAndStats.Rnw:174-175
 ###################################################
 getOption("SweaveHooks")[["fig"]]()
 PlotNPS(TL84, 'Log10M', 'Log10N', show.nodes.as='both', show.web=FALSE, cex=2)
 
 
 ###################################################
-### code chunk number 8: PlotsAndStats.Rnw:187-189
+### code chunk number 8: PlotsAndStats.Rnw:185-187
 ###################################################
 getOption("SweaveHooks")[["fig"]]()
 PlotNPS(TL84, 'Log10M', 'Log10N', xlab=Log10MLabel(TL84), 
@@ -74,7 +72,7 @@ PlotNPS(TL84, 'Log10M', 'Log10N', xlab=Log10MLabel(TL84),
 
 
 ###################################################
-### code chunk number 9: PlotsAndStats.Rnw:199-208
+### code chunk number 9: PlotsAndStats.Rnw:197-206
 ###################################################
 getOption("SweaveHooks")[["fig"]]()
 par(mfrow=c(1,3))
@@ -89,21 +87,21 @@ abline(lm(Degree(TL84) ~ Log10M(TL84)))
 
 
 ###################################################
-### code chunk number 10: PlotsAndStats.Rnw:220-221
+### code chunk number 10: PlotsAndStats.Rnw:218-219
 ###################################################
 getOption("SweaveHooks")[["fig"]]()
 PlotNPS(TL84, 'Log10M', 'PreyAveragedTrophicLevel')
 
 
 ###################################################
-### code chunk number 11: PlotsAndStats.Rnw:228-229
+### code chunk number 11: PlotsAndStats.Rnw:226-227
 ###################################################
 getOption("SweaveHooks")[["fig"]]()
 PlotNPS(TL84, 'Log10M', 'ChainAveragedTrophicLevel')
 
 
 ###################################################
-### code chunk number 12: PlotsAndStats.Rnw:244-249
+### code chunk number 12: PlotsAndStats.Rnw:242-247
 ###################################################
 getOption("SweaveHooks")[["fig"]]()
 par(mfrow=c(1,2))
@@ -114,7 +112,7 @@ PlotNPS(TL84, 'Log10M', 'ChainAveragedTrophicLevel', ylim=c(1, 6),
 
 
 ###################################################
-### code chunk number 13: PlotsAndStats.Rnw:263-268
+### code chunk number 13: PlotsAndStats.Rnw:261-266
 ###################################################
 getOption("SweaveHooks")[["fig"]]()
 par(mfrow=c(2,2))
@@ -125,42 +123,42 @@ PlotMvB(TL84)
 
 
 ###################################################
-### code chunk number 14: PlotsAndStats.Rnw:281-282
+### code chunk number 14: PlotsAndStats.Rnw:279-280
 ###################################################
 getOption("SweaveHooks")[["fig"]]()
 PlotRankNPS(TL84, 'Log10N')
 
 
 ###################################################
-### code chunk number 15: PlotsAndStats.Rnw:287-288
+### code chunk number 15: PlotsAndStats.Rnw:285-286
 ###################################################
 getOption("SweaveHooks")[["fig"]]()
 PlotRankNPS(TL84, 'Log10N', rank.by='M')
 
 
 ###################################################
-### code chunk number 16: PlotsAndStats.Rnw:296-297
+### code chunk number 16: PlotsAndStats.Rnw:294-295
 ###################################################
 getOption("SweaveHooks")[["fig"]]()
 PlotRankNPS(TL84, 'Log10N', rank.by='M', show.web=TRUE)
 
 
 ###################################################
-### code chunk number 17: PlotsAndStats.Rnw:302-303
+### code chunk number 17: PlotsAndStats.Rnw:300-301
 ###################################################
 getOption("SweaveHooks")[["fig"]]()
 PlotRankNPS(TL84, 'PreyAveragedTrophicLevel', rank.by='M')
 
 
 ###################################################
-### code chunk number 18: PlotsAndStats.Rnw:311-312
+### code chunk number 18: PlotsAndStats.Rnw:309-310
 ###################################################
 getOption("SweaveHooks")[["fig"]]()
 PlotRankNPS(TL84, 'PreyAveragedTrophicLevel', rank.by='M', log10.rank=TRUE)
 
 
 ###################################################
-### code chunk number 19: PlotsAndStats.Rnw:322-326
+### code chunk number 19: PlotsAndStats.Rnw:320-324
 ###################################################
 getOption("SweaveHooks")[["fig"]]()
 par(mfrow=c(1,3))
@@ -170,42 +168,42 @@ PlotBvRankB(TL84)
 
 
 ###################################################
-### code chunk number 20: PlotsAndStats.Rnw:340-341
+### code chunk number 20: PlotsAndStats.Rnw:338-339
 ###################################################
 getOption("SweaveHooks")[["fig"]]()
 PlotNPSDistribution(TL84, 'Log10M')
 
 
 ###################################################
-### code chunk number 21: PlotsAndStats.Rnw:347-348
+### code chunk number 21: PlotsAndStats.Rnw:345-346
 ###################################################
 getOption("SweaveHooks")[["fig"]]()
 PlotNPSDistribution(TL84, 'Log10M', density.args=list(bw=3))
 
 
 ###################################################
-### code chunk number 22: PlotsAndStats.Rnw:368-369
+### code chunk number 22: PlotsAndStats.Rnw:366-367
 ###################################################
 getOption("SweaveHooks")[["fig"]]()
 PlotNvM(TL84, col=1, pch=19, highlight.nodes=NULL)
 
 
 ###################################################
-### code chunk number 23: PlotsAndStats.Rnw:376-377
+### code chunk number 23: PlotsAndStats.Rnw:374-375
 ###################################################
 getOption("SweaveHooks")[["fig"]]()
 PlotNvM(TL84, col=1:56, pch=19, highlight.nodes=NULL)
 
 
 ###################################################
-### code chunk number 24: PlotsAndStats.Rnw:386-387
+### code chunk number 24: PlotsAndStats.Rnw:384-385
 ###################################################
 getOption("SweaveHooks")[["fig"]]()
 PlotNvM(TL84, colour.by='resolved.to', pch=19, highlight.nodes=NULL)
 
 
 ###################################################
-### code chunk number 25: PlotsAndStats.Rnw:395-399
+### code chunk number 25: PlotsAndStats.Rnw:393-397
 ###################################################
 getOption("SweaveHooks")[["fig"]]()
 colour.spec <- c(Species='purple3', Genus='green3', 'red3')
@@ -215,7 +213,7 @@ legend("topright", legend=names(colour.spec), pch=19, col=colour.spec)
 
 
 ###################################################
-### code chunk number 26: PlotsAndStats.Rnw:410-422
+### code chunk number 26: PlotsAndStats.Rnw:408-420
 ###################################################
 getOption("SweaveHooks")[["fig"]]()
 symbol.spec = c(Bacteria=21, Plantae=22, Chromista=23, 
@@ -233,7 +231,7 @@ legend("topright", legend=names(colour.spec), pch=symbol.spec,
 
 
 ###################################################
-### code chunk number 27: PlotsAndStats.Rnw:434-448
+### code chunk number 27: PlotsAndStats.Rnw:432-446
 ###################################################
 getOption("SweaveHooks")[["fig"]]()
 symbol.spec = c(Bacteria=21, Plantae=22, Chromista=23, 
@@ -253,14 +251,14 @@ colours <- PlotLinearModels(models, colour.spec=colour.spec)
 
 
 ###################################################
-### code chunk number 28: PlotsAndStats.Rnw:459-460
+### code chunk number 28: PlotsAndStats.Rnw:457-458
 ###################################################
 getOption("SweaveHooks")[["fig"]]()
 PlotNvM(TL84, pch=NA, highlight.nodes=NULL)
 
 
 ###################################################
-### code chunk number 29: PlotsAndStats.Rnw:473-482
+### code chunk number 29: PlotsAndStats.Rnw:471-480
 ###################################################
 getOption("SweaveHooks")[["fig"]]()
 par(mfrow=c(1,2))
@@ -275,35 +273,35 @@ PlotNvM(TL84)
 
 
 ###################################################
-### code chunk number 30: PlotsAndStats.Rnw:498-499
+### code chunk number 30: PlotsAndStats.Rnw:496-497
 ###################################################
 getOption("SweaveHooks")[["fig"]]()
 PlotNvM(TL84, highlight.nodes=Cannibals)
 
 
 ###################################################
-### code chunk number 31: PlotsAndStats.Rnw:505-506
+### code chunk number 31: PlotsAndStats.Rnw:503-504
 ###################################################
 getOption("SweaveHooks")[["fig"]]()
 PlotNvM(TL84, highlight.nodes=IsolatedNodes)
 
 
 ###################################################
-### code chunk number 32: PlotsAndStats.Rnw:512-513
+### code chunk number 32: PlotsAndStats.Rnw:510-511
 ###################################################
 getOption("SweaveHooks")[["fig"]]()
 PlotNvM(TL84, highlight.nodes='Chaoborus punctipennis')
 
 
 ###################################################
-### code chunk number 33: PlotsAndStats.Rnw:526-527
+### code chunk number 33: PlotsAndStats.Rnw:524-525
 ###################################################
 getOption("SweaveHooks")[["fig"]]()
 PlotNvM(TL84, highlight.links=ResourceLargerThanConsumer)
 
 
 ###################################################
-### code chunk number 34: PlotsAndStats.Rnw:533-535
+### code chunk number 34: PlotsAndStats.Rnw:531-533
 ###################################################
 getOption("SweaveHooks")[["fig"]]()
 PlotNvM(TL84, highlight.nodes='Chaoborus punctipennis', 
@@ -311,7 +309,7 @@ PlotNvM(TL84, highlight.nodes='Chaoborus punctipennis',
 
 
 ###################################################
-### code chunk number 35: PlotsAndStats.Rnw:556-560
+### code chunk number 35: PlotsAndStats.Rnw:554-558
 ###################################################
 getOption("SweaveHooks")[["fig"]]()
 data(YthanEstuary)
@@ -321,14 +319,14 @@ PlotNvM(YthanEstuary, show.na=TRUE)
 
 
 ###################################################
-### code chunk number 36: PlotsAndStats.Rnw:570-571
+### code chunk number 36: PlotsAndStats.Rnw:568-569
 ###################################################
 getOption("SweaveHooks")[["fig"]]()
 PlotNvM(YthanEstuary, xlim=c(-10, 4), ylim=c(-10, 13), show.na=TRUE)
 
 
 ###################################################
-### code chunk number 37: PlotsAndStats.Rnw:583-606
+### code chunk number 37: PlotsAndStats.Rnw:581-604
 ###################################################
 getOption("SweaveHooks")[["fig"]]()
 par(mfrow=c(2,2))
@@ -357,31 +355,30 @@ PlotNvM(Community(nodes=np, trophic.links=TLPS(TL84), properties=CPS(TL84)),
 
 
 ###################################################
-### code chunk number 38: PlotsAndStats.Rnw:618-622
+### code chunk number 38: PlotsAndStats.Rnw:616-619
 ###################################################
 getOption("SweaveHooks")[["fig"]]()
-data(YthanEstuary)
 par(mfrow=c(1,2))
 PlotMvRankM(YthanEstuary)
 PlotMvRankM(YthanEstuary, show.na=TRUE)
 
 
 ###################################################
-### code chunk number 39: PlotsAndStats.Rnw:646-647
+### code chunk number 39: PlotsAndStats.Rnw:643-644
 ###################################################
 getOption("SweaveHooks")[["fig"]]()
 PlotTLPS(TL84, 'resource.Log10M', 'consumer.Log10M')
 
 
 ###################################################
-### code chunk number 40: PlotsAndStats.Rnw:656-657
+### code chunk number 40: PlotsAndStats.Rnw:653-654
 ###################################################
 getOption("SweaveHooks")[["fig"]]()
 PlotTLPS(TL84, 'resource.Log10M', 'consumer.Log10M', axes.limits.equal=TRUE)
 
 
 ###################################################
-### code chunk number 41: PlotsAndStats.Rnw:678-683
+### code chunk number 41: PlotsAndStats.Rnw:675-680
 ###################################################
 getOption("SweaveHooks")[["fig"]]()
 par(mfrow=c(2,2))
@@ -392,14 +389,14 @@ PlotBRvBC(TL84)
 
 
 ###################################################
-### code chunk number 42: PlotsAndStats.Rnw:697-698
+### code chunk number 42: PlotsAndStats.Rnw:694-695
 ###################################################
 getOption("SweaveHooks")[["fig"]]()
 PlotMRvMC(TL84)
 
 
 ###################################################
-### code chunk number 43: PlotsAndStats.Rnw:706-708
+### code chunk number 43: PlotsAndStats.Rnw:703-705
 ###################################################
 getOption("SweaveHooks")[["fig"]]()
 PlotMRvMC(TL84, colour.by='consumer.category', bg.by='consumer.category', 
@@ -407,7 +404,7 @@ PlotMRvMC(TL84, colour.by='consumer.category', bg.by='consumer.category',
 
 
 ###################################################
-### code chunk number 44: PlotsAndStats.Rnw:719-722
+### code chunk number 44: PlotsAndStats.Rnw:716-719
 ###################################################
 SumMByClass(TL84)
 SumNByClass(TL84)
@@ -415,7 +412,7 @@ SumBiomassByClass(TL84)
 
 
 ###################################################
-### code chunk number 45: PlotsAndStats.Rnw:726-729
+### code chunk number 45: PlotsAndStats.Rnw:723-726
 ###################################################
 SumMByClass(TL84, 'kingdom')
 SumNByClass(TL84, 'kingdom')
@@ -423,40 +420,40 @@ SumBiomassByClass(TL84, 'kingdom')
 
 
 ###################################################
-### code chunk number 46: PlotsAndStats.Rnw:735-737
+### code chunk number 46: PlotsAndStats.Rnw:732-734
 ###################################################
 SumBiomassByClass(TL84)
 ApplyByClass(TL84, 'Biomass', 'category', sum)
 
 
 ###################################################
-### code chunk number 47: PlotsAndStats.Rnw:750-752
+### code chunk number 47: PlotsAndStats.Rnw:747-749
 ###################################################
 models <- NvMLinearRegressions(TL84)
 names(models)
 
 
 ###################################################
-### code chunk number 48: PlotsAndStats.Rnw:755-756
+### code chunk number 48: PlotsAndStats.Rnw:752-753
 ###################################################
 sapply(models, 'coef')
 
 
 ###################################################
-### code chunk number 49: PlotsAndStats.Rnw:763-765
+### code chunk number 49: PlotsAndStats.Rnw:760-762
 ###################################################
 models <- NvMLinearRegressions(TL84, class='phylum')
 names(models)
 
 
 ###################################################
-### code chunk number 50: PlotsAndStats.Rnw:773-774
+### code chunk number 50: PlotsAndStats.Rnw:770-771
 ###################################################
 sapply(models, is.null)
 
 
 ###################################################
-### code chunk number 51: PlotsAndStats.Rnw:780-783
+### code chunk number 51: PlotsAndStats.Rnw:777-780
 ###################################################
 data(BroadstoneStream)
 models <- NvMLinearRegressions(BroadstoneStream)
@@ -464,7 +461,7 @@ sapply(models, is.null)
 
 
 ###################################################
-### code chunk number 52: PlotsAndStats.Rnw:787-790
+### code chunk number 52: PlotsAndStats.Rnw:784-787
 ###################################################
 NvMSlope(TL84)
 NvMIntercept(TL84)
@@ -472,7 +469,7 @@ NvMSlopeAndIntercept(TL84)
 
 
 ###################################################
-### code chunk number 53: PlotsAndStats.Rnw:793-796
+### code chunk number 53: PlotsAndStats.Rnw:790-793
 ###################################################
 NvMSlopeByClass(TL84)
 NvMInterceptByClass(TL84)
@@ -480,7 +477,7 @@ NvMSlopeAndInterceptByClass(TL84)
 
 
 ###################################################
-### code chunk number 54: PlotsAndStats.Rnw:799-802
+### code chunk number 54: PlotsAndStats.Rnw:796-799
 ###################################################
 NvMSlopeByClass(TL84, class='kingdom')
 NvMInterceptByClass(TL84, class='kingdom')
@@ -488,10 +485,10 @@ NvMSlopeAndInterceptByClass(TL84, class='kingdom')
 
 
 ###################################################
-### code chunk number 55: PlotsAndStats.Rnw:838-845
+### code chunk number 55: PlotsAndStats.Rnw:835-842
 ###################################################
 getOption("SweaveHooks")[["fig"]]()
-data(TL84, TL86)
+data(TL86)
 par(mfrow=c(1,2))
 PlotMvN(TL84, show.nodes.as='both', cex=2, xlim=c(-2, 10), ylim=c(-14, 0), 
         highlight.nodes=NULL, highlight.links=NULL, main='')
@@ -501,7 +498,7 @@ title(main='Jonsson et al. (2005) AER, Fig. 3 (p 30)', outer=TRUE)
 
 
 ###################################################
-### code chunk number 56: PlotsAndStats.Rnw:854-860
+### code chunk number 56: PlotsAndStats.Rnw:851-857
 ###################################################
 getOption("SweaveHooks")[["fig"]]()
 par(mfrow=c(1,2))
@@ -513,7 +510,7 @@ title(main='Jonsson et al. (2005) AER, Fig. 4 (p 33)', outer=TRUE)
 
 
 ###################################################
-### code chunk number 57: PlotsAndStats.Rnw:869-875
+### code chunk number 57: PlotsAndStats.Rnw:866-872
 ###################################################
 getOption("SweaveHooks")[["fig"]]()
 par(mfrow=c(2,2))
@@ -525,7 +522,7 @@ title(main='Jonsson et al. (2005) AER, Fig. 5 (p 37)', outer=TRUE)
 
 
 ###################################################
-### code chunk number 58: PlotsAndStats.Rnw:884-894
+### code chunk number 58: PlotsAndStats.Rnw:881-891
 ###################################################
 getOption("SweaveHooks")[["fig"]]()
 par(mfrow=c(2,2))
@@ -541,7 +538,7 @@ title(main='Jonsson et al. (2005) AER, Fig. 7 (p 47)', outer=TRUE)
 
 
 ###################################################
-### code chunk number 59: PlotsAndStats.Rnw:903-913
+### code chunk number 59: PlotsAndStats.Rnw:900-910
 ###################################################
 getOption("SweaveHooks")[["fig"]]()
 par(mfrow=c(2,2))
@@ -557,7 +554,7 @@ title(main='Jonsson et al. (2005) AER, Fig. 8 (p 49)', outer=TRUE)
 
 
 ###################################################
-### code chunk number 60: PlotsAndStats.Rnw:922-928
+### code chunk number 60: PlotsAndStats.Rnw:919-925
 ###################################################
 getOption("SweaveHooks")[["fig"]]()
 par(mfrow=c(2,2))
@@ -569,7 +566,7 @@ title(main='Jonsson et al. (2005) AER, Fig. 10 (p 57)', outer=TRUE)
 
 
 ###################################################
-### code chunk number 61: PlotsAndStats.Rnw:937-949
+### code chunk number 61: PlotsAndStats.Rnw:934-946
 ###################################################
 getOption("SweaveHooks")[["fig"]]()
 par(mfrow=c(2,2))
@@ -587,7 +584,7 @@ title(main='Jonsson et al. (2005) AER, Fig. 11 (p 60)', outer=TRUE)
 
 
 ###################################################
-### code chunk number 62: PlotsAndStats.Rnw:960-984
+### code chunk number 62: PlotsAndStats.Rnw:957-981
 ###################################################
 getOption("SweaveHooks")[["fig"]]()
 PlotCommunityVCommunity <- function(a, b, property, xlim=NULL, ylim=NULL, ...)
@@ -617,7 +614,7 @@ title(main='Jonsson et al. (2005) AER, Fig. 12 (p 61)', outer=TRUE)
 
 
 ###################################################
-### code chunk number 63: PlotsAndStats.Rnw:997-1013
+### code chunk number 63: PlotsAndStats.Rnw:994-1010
 ###################################################
 getOption("SweaveHooks")[["fig"]]()
 data(pHWebs)
@@ -639,7 +636,7 @@ title(main='Layer et al. (2010) AER, Fig. 6 (p 282)', outer=TRUE)
 
 
 ###################################################
-### code chunk number 64: PlotsAndStats.Rnw:1025-1040
+### code chunk number 64: PlotsAndStats.Rnw:1022-1037
 ###################################################
 getOption("SweaveHooks")[["fig"]]()
 data(BroadstoneStream)
@@ -660,16 +657,15 @@ title(main='Woodward et al. (2005) AER, Fig. 4 (p 108)', outer=TRUE)
 
 
 ###################################################
-### code chunk number 65: PlotsAndStats.Rnw:1055-1059
+### code chunk number 65: PlotsAndStats.Rnw:1052-1055
 ###################################################
-data(TL84, TL86, YthanEstuary)
 collection <- CommunityCollection(list(TL84, TL86, YthanEstuary))
 table <- NvMTriTrophicTable(collection)
 print(round(table,2))
 
 
 ###################################################
-### code chunk number 66: PlotsAndStats.Rnw:1063-1092
+### code chunk number 66: PlotsAndStats.Rnw:1059-1088
 ###################################################
 res <- lapply(list(TL84, TL86, YthanEstuary), function(community)
 {
@@ -703,10 +699,9 @@ print(round(res,2))
 
 
 ###################################################
-### code chunk number 67: PlotsAndStats.Rnw:1099-1112
+### code chunk number 67: PlotsAndStats.Rnw:1095-1107
 ###################################################
 getOption("SweaveHooks")[["fig"]]()
-data(TL84, TL86, YthanEstuary)
 par(mfrow=c(3,2))
 for(community in list(TL84, TL86, YthanEstuary))
 {
@@ -722,7 +717,7 @@ title(main='Cohen et al. (2009) PNAS, Fig. 1 (p 22336)', outer=TRUE)
 
 
 ###################################################
-### code chunk number 68: PlotsAndStats.Rnw:1121-1124
+### code chunk number 68: PlotsAndStats.Rnw:1116-1119
 ###################################################
 data(ChesapeakeBay)
 res <- NodeQuantitativeDescriptors(ChesapeakeBay, 'biomass.flow')
@@ -730,9 +725,8 @@ print(round(res[1:6,],2))
 
 
 ###################################################
-### code chunk number 69: PlotsAndStats.Rnw:1128-1131
+### code chunk number 69: PlotsAndStats.Rnw:1123-1125
 ###################################################
-data(ChesapeakeBay)
 res <- QuantitativeDescriptors(ChesapeakeBay, 'biomass.flow')
 print(round(res,3))
 

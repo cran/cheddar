@@ -2,10 +2,8 @@
 ### Encoding: UTF-8
 
 ###################################################
-### code chunk number 1: Community.Rnw:32-45
+### code chunk number 1: Community.Rnw:32-43
 ###################################################
-options(warn=2)
-
 library(cheddar)
 
 # Makes copy-paste much less painful
@@ -20,32 +18,32 @@ options(SweaveHooks = list(fig=function() par(mgp=c(2.5,1,0),
 
 
 ###################################################
-### code chunk number 2: Community.Rnw:136-138
+### code chunk number 2: Community.Rnw:134-136
 ###################################################
 data(TL84)  # Load the dataset
 print(TL84) # A description of the data
 
 
 ###################################################
-### code chunk number 3: Community.Rnw:145-146
+### code chunk number 3: Community.Rnw:143-144
 ###################################################
 CommunityPropertyNames(TL84)
 
 
 ###################################################
-### code chunk number 4: Community.Rnw:151-152
+### code chunk number 4: Community.Rnw:149-150
 ###################################################
 CPS(TL84)
 
 
 ###################################################
-### code chunk number 5: Community.Rnw:161-162
+### code chunk number 5: Community.Rnw:159-160
 ###################################################
 CPS(TL84, c('lat', 'long'))
 
 
 ###################################################
-### code chunk number 6: Community.Rnw:167-172
+### code chunk number 6: Community.Rnw:165-170
 ###################################################
 NumberOfNodes(TL84)
 NumberOfTrophicLinks(TL84)
@@ -55,33 +53,33 @@ CPS(TL84, c('lat', 'long', 'NumberOfNodes', 'NumberOfTrophicLinks'))
 
 
 ###################################################
-### code chunk number 7: Community.Rnw:175-176
+### code chunk number 7: Community.Rnw:173-174
 ###################################################
 CPS(TL84, c('lat', 'long', S='NumberOfNodes', L='NumberOfTrophicLinks'))
 
 
 ###################################################
-### code chunk number 8: Community.Rnw:180-182
+### code chunk number 8: Community.Rnw:178-180
 ###################################################
 # Returns a list containing 'not a property'=NA
 CPS(TL84, c('not a property'))
 
 
 ###################################################
-### code chunk number 9: Community.Rnw:190-192
+### code chunk number 9: Community.Rnw:188-190
 ###################################################
 NumberOfNodes(TL84)
 NodePropertyNames(TL84)
 
 
 ###################################################
-### code chunk number 10: Community.Rnw:200-201
+### code chunk number 10: Community.Rnw:198-199
 ###################################################
 head(NPS(TL84))
 
 
 ###################################################
-### code chunk number 11: Community.Rnw:208-213
+### code chunk number 11: Community.Rnw:206-211
 ###################################################
 # Just body mass
 head(NPS(TL84, 'M'))
@@ -91,25 +89,25 @@ head(NPS(TL84, c('M','N')))
 
 
 ###################################################
-### code chunk number 12: Community.Rnw:223-224
+### code chunk number 12: Community.Rnw:221-222
 ###################################################
 tail(NPS(TL84, c('Log10M', 'Log10N')))
 
 
 ###################################################
-### code chunk number 13: Community.Rnw:227-228
+### code chunk number 13: Community.Rnw:225-226
 ###################################################
 tail(NPS(TL84, c('Log10M', 'Log10N', 'category', 'phylum')))
 
 
 ###################################################
-### code chunk number 14: Community.Rnw:234-235
+### code chunk number 14: Community.Rnw:232-233
 ###################################################
 tail(NPS(TL84, c('Log10MNBiomass')))
 
 
 ###################################################
-### code chunk number 15: Community.Rnw:241-246
+### code chunk number 15: Community.Rnw:239-244
 ###################################################
 nps <- NPS(TL84, c('InDegree','OutDegree','Degree'))
 head(nps)
@@ -119,7 +117,7 @@ all(nps$Degree == nps$InDegree+nps$OutDegree)
 
 
 ###################################################
-### code chunk number 16: Community.Rnw:255-259
+### code chunk number 16: Community.Rnw:253-257
 ###################################################
 IsCannibal(TL84)['Umbra limi']
 InDegree(TL84)["Umbra limi"]
@@ -128,40 +126,40 @@ Degree(TL84)["Umbra limi"]
 
 
 ###################################################
-### code chunk number 17: Community.Rnw:266-267
+### code chunk number 17: Community.Rnw:264-265
 ###################################################
 tail(NPS(TL84, c('Log10M', 'OutDegree', 'InDegree', 'Degree')))
 
 
 ###################################################
-### code chunk number 18: Community.Rnw:277-279
+### code chunk number 18: Community.Rnw:275-277
 ###################################################
 tail(NPS(TL84, c('Log10M', 'PreyAveragedTrophicLevel', 
                  'ChainAveragedTrophicLevel')))
 
 
 ###################################################
-### code chunk number 19: Community.Rnw:283-285
+### code chunk number 19: Community.Rnw:281-283
 ###################################################
 tail(NPS(TL84, c('Log10M', PATL='PreyAveragedTrophicLevel', 
                  CATL='ChainAveragedTrophicLevel')))
 
 
 ###################################################
-### code chunk number 20: Community.Rnw:295-296
+### code chunk number 20: Community.Rnw:293-294
 ###################################################
 tail(TrophicSpecies(TL84))
 
 
 ###################################################
-### code chunk number 21: Community.Rnw:304-306
+### code chunk number 21: Community.Rnw:302-304
 ###################################################
 head(NPS(TL84, list(TS.iso='TrophicSpecies', 
                     TS.no.iso=list('TrophicSpecies', include.isolated=FALSE))))
 
 
 ###################################################
-### code chunk number 22: Community.Rnw:322-326
+### code chunk number 22: Community.Rnw:320-324
 ###################################################
 head(NPS(TL84, list('category', BM='M', 'NA'='N', 
                     TS=list('TrophicSpecies', include.isolated=FALSE),
@@ -170,25 +168,25 @@ head(NPS(TL84, list('category', BM='M', 'NA'='N',
 
 
 ###################################################
-### code chunk number 23: Community.Rnw:342-343
+### code chunk number 23: Community.Rnw:340-341
 ###################################################
 head(NPS(TL84, c('Not a property or function')))
 
 
 ###################################################
-### code chunk number 24: Community.Rnw:350-351
+### code chunk number 24: Community.Rnw:348-349
 ###################################################
 NumberOfTrophicLinks(TL84)
 
 
 ###################################################
-### code chunk number 25: Community.Rnw:362-363
+### code chunk number 25: Community.Rnw:360-361
 ###################################################
 head(TLPS(TL84))
 
 
 ###################################################
-### code chunk number 26: Community.Rnw:369-372
+### code chunk number 26: Community.Rnw:367-370
 ###################################################
 head(TLPS(TL84, node.properties='M'))
 head(TLPS(TL84, node.properties=c('M','Biomass')))
@@ -196,64 +194,64 @@ head(TLPS(TL84, node.properties=c('M', B='Biomass')))
 
 
 ###################################################
-### code chunk number 27: Community.Rnw:387-389
+### code chunk number 27: Community.Rnw:385-387
 ###################################################
 data(SkipwithPond)
 head(TLPS(SkipwithPond))
 
 
 ###################################################
-### code chunk number 28: Community.Rnw:393-394
+### code chunk number 28: Community.Rnw:391-392
 ###################################################
 TrophicLinkPropertyNames(SkipwithPond)
 
 
 ###################################################
-### code chunk number 29: Community.Rnw:399-400
+### code chunk number 29: Community.Rnw:397-398
 ###################################################
 head(TLPS(SkipwithPond, link.properties='link.evidence'))
 
 
 ###################################################
-### code chunk number 30: Community.Rnw:411-412
+### code chunk number 30: Community.Rnw:409-410
 ###################################################
 head(TLPS(TL84, link.properties='Log10RCMRatio'))
 
 
 ###################################################
-### code chunk number 31: Community.Rnw:415-416
+### code chunk number 31: Community.Rnw:413-414
 ###################################################
 head(TLPS(TL84, node.properties='Log10M', link.properties='Log10RCMRatio'))
 
 
 ###################################################
-### code chunk number 32: Community.Rnw:423-424
+### code chunk number 32: Community.Rnw:421-422
 ###################################################
 pm <- PredationMatrix(TL84)
 
 
 ###################################################
-### code chunk number 33: Community.Rnw:429-431
+### code chunk number 33: Community.Rnw:427-429
 ###################################################
 sum(pm)
 NumberOfTrophicLinks(TL84)
 
 
 ###################################################
-### code chunk number 34: Community.Rnw:436-438
+### code chunk number 34: Community.Rnw:434-436
 ###################################################
 data(Benguela)
 pm <- PredationMatrix(Benguela, weight='diet.fraction')
 
 
 ###################################################
-### code chunk number 35: Community.Rnw:489-490
+### code chunk number 35: Community.Rnw:487-488
 ###################################################
 IsolatedNodes(TL84)
 
 
 ###################################################
-### code chunk number 36: Community.Rnw:494-499
+### code chunk number 36: Community.Rnw:492-497
 ###################################################
 connectivity <- NPS(TL84, c(Basal='IsBasalNode', 
                             Isolated='IsIsolatedNode', 
@@ -263,13 +261,13 @@ connectivity
 
 
 ###################################################
-### code chunk number 37: Community.Rnw:505-506
+### code chunk number 37: Community.Rnw:503-504
 ###################################################
 all(1==apply(connectivity, 1, sum))
 
 
 ###################################################
-### code chunk number 38: Community.Rnw:509-522
+### code chunk number 38: Community.Rnw:507-520
 ###################################################
 sum(FractionBasalNodes(TL84), 
     FractionIntermediateNodes(TL84), 
@@ -287,20 +285,20 @@ sum(FractionTopLevelNodes(TL84),
 
 
 ###################################################
-### code chunk number 39: Community.Rnw:538-540
+### code chunk number 39: Community.Rnw:536-538
 ###################################################
 tc <- TrophicChains(TL84)
 dim(tc)
 
 
 ###################################################
-### code chunk number 40: Community.Rnw:544-545
+### code chunk number 40: Community.Rnw:542-543
 ###################################################
 head(tc, 20)
 
 
 ###################################################
-### code chunk number 41: Community.Rnw:548-552
+### code chunk number 41: Community.Rnw:546-550
 ###################################################
 BasalNodes(TL84)
 # The first node in each chain
@@ -309,7 +307,7 @@ all(unique(first) %in% BasalNodes(TL84))  # TRUE
 
 
 ###################################################
-### code chunk number 42: Community.Rnw:556-560
+### code chunk number 42: Community.Rnw:554-558
 ###################################################
 TopLevelNodes(TL84)
 # The last node in each chain
@@ -318,20 +316,19 @@ unique(last)
 
 
 ###################################################
-### code chunk number 43: Community.Rnw:566-567
+### code chunk number 43: Community.Rnw:564-565
 ###################################################
 tc.with.log10M <- TrophicChains(TL84, node.properties='Log10M')
 
 
 ###################################################
-### code chunk number 44: Community.Rnw:572-574
+### code chunk number 44: Community.Rnw:570-571
 ###################################################
-data(Benguela)
 TopLevelNodes(Benguela)
 
 
 ###################################################
-### code chunk number 45: Community.Rnw:576-580
+### code chunk number 45: Community.Rnw:573-577
 ###################################################
 tc <- TrophicChains(Benguela)
 last <- apply(tc, 1, function(row) row[max(which(""!=row))])
@@ -340,51 +337,51 @@ IsIntermediateNode(Benguela)[unique(last)]
 
 
 ###################################################
-### code chunk number 46: Community.Rnw:585-586
+### code chunk number 46: Community.Rnw:582-583
 ###################################################
 chain.stats <- TrophicChainsStats(TL84)
 
 
 ###################################################
-### code chunk number 47: Community.Rnw:589-591
+### code chunk number 47: Community.Rnw:586-588
 ###################################################
 length(chain.stats$chain.lengths)    # 5,988 chains
 summary(chain.stats$chain.lengths)
 
 
 ###################################################
-### code chunk number 48: Community.Rnw:596-597
+### code chunk number 48: Community.Rnw:593-594
 ###################################################
 dim(chain.stats$node.pos.counts)    # 56 nodes. Longest chain contains 8 nodes
 
 
 ###################################################
-### code chunk number 49: Community.Rnw:600-601
+### code chunk number 49: Community.Rnw:597-598
 ###################################################
 chain.stats$node.pos.counts[BasalNodes(TL84),]
 
 
 ###################################################
-### code chunk number 50: Community.Rnw:604-605
+### code chunk number 50: Community.Rnw:601-602
 ###################################################
 chain.stats$node.pos.counts[c(IntermediateNodes(TL84),TopLevelNodes(TL84)),]
 
 
 ###################################################
-### code chunk number 51: Community.Rnw:608-609
+### code chunk number 51: Community.Rnw:605-606
 ###################################################
 chain.stats$node.pos.counts[IsolatedNodes(TL84),]
 
 
 ###################################################
-### code chunk number 52: Community.Rnw:614-616
+### code chunk number 52: Community.Rnw:611-613
 ###################################################
 system.time(tc <- TrophicChains(TL84))
 system.time(stats <- TrophicChainsStats(TL84))
 
 
 ###################################################
-### code chunk number 53: Community.Rnw:626-653
+### code chunk number 53: Community.Rnw:623-650
 ###################################################
 HighlyConnected <- function(n)
 {
@@ -416,21 +413,21 @@ cbind(n.consumers=1:n, longest.chain=sapply(cl, max), n.chains=n.chains)
 
 
 ###################################################
-### code chunk number 54: Community.Rnw:658-660
+### code chunk number 54: Community.Rnw:655-657
 ###################################################
 cbind(n.consumers=1:n, longest.chain=sapply(cl, max), n.chains=n.chains, 
       factorial.n=factorial(1:n))
 
 
 ###################################################
-### code chunk number 55: Community.Rnw:663-665
+### code chunk number 55: Community.Rnw:660-662
 ###################################################
 n <- 20
 cbind(n.consumers=1:n, longest.chain=1:n, factorial.n=factorial(1:n))
 
 
 ###################################################
-### code chunk number 56: Community.Rnw:675-682
+### code chunk number 56: Community.Rnw:672-679
 ###################################################
 # Set to a low number to illustrate the error
 options(cheddarMaxQueue=10)
@@ -442,45 +439,44 @@ chains <- TrophicChains(TL84)
 
 
 ###################################################
-### code chunk number 57: Community.Rnw:707-708
+### code chunk number 57: Community.Rnw:704-705
 ###################################################
 tail(NPS(TL84, c('PreyAveragedTrophicLevel', 'ChainAveragedTrophicLevel')), 10)
 
 
 ###################################################
-### code chunk number 58: Community.Rnw:714-715
+### code chunk number 58: Community.Rnw:711-712
 ###################################################
 tail(TrophicLevels(TL84), 10)
 
 
 ###################################################
-### code chunk number 59: Community.Rnw:733-735
+### code chunk number 59: Community.Rnw:730-731
 ###################################################
-data(Benguela)
 head(TLPS(Benguela))
 
 
 ###################################################
-### code chunk number 60: Community.Rnw:738-739
+### code chunk number 60: Community.Rnw:734-735
 ###################################################
 pm <- PredationMatrix(Benguela)
 
 
 ###################################################
-### code chunk number 61: Community.Rnw:742-743
+### code chunk number 61: Community.Rnw:738-739
 ###################################################
 pm <- PredationMatrix(Benguela, weight='diet.fraction')
 
 
 ###################################################
-### code chunk number 62: Community.Rnw:751-753
+### code chunk number 62: Community.Rnw:747-749
 ###################################################
 cbind(PreyAveragedTrophicLevel(Benguela), 
       FlowBasedTrophicLevel(Benguela, weight.by='diet.fraction'))
 
 
 ###################################################
-### code chunk number 63: Community.Rnw:760-769
+### code chunk number 63: Community.Rnw:756-765
 ###################################################
 InteractionStrength <- function(community)
 {
@@ -494,7 +490,7 @@ head(TLPS(Benguela, link.properties='InteractionStrength'))
 
 
 ###################################################
-### code chunk number 64: Community.Rnw:773-776
+### code chunk number 64: Community.Rnw:769-772
 ###################################################
 cbind(PreyAveragedTrophicLevel(Benguela), 
       FlowBasedTrophicLevel(Benguela, weight.by='diet.fraction'), 
@@ -502,7 +498,7 @@ cbind(PreyAveragedTrophicLevel(Benguela),
 
 
 ###################################################
-### code chunk number 65: Community.Rnw:796-801
+### code chunk number 65: Community.Rnw:792-797
 ###################################################
 TL84.increasing.M <- OrderCommunity(TL84, 'M', title='Increasing M')
 head(NPS(TL84.increasing.M, c('M', 'Degree')))
@@ -512,14 +508,14 @@ head(NPS(TL84.increasing.degree, c('M', 'Degree')))
 
 
 ###################################################
-### code chunk number 66: Community.Rnw:806-808
+### code chunk number 66: Community.Rnw:802-804
 ###################################################
 TL84.category.then.M <- OrderCommunity(TL84, 'category', 'M')
 head(NPS(TL84.category.then.M, c('category', 'M')))
 
 
 ###################################################
-### code chunk number 67: Community.Rnw:823-828
+### code chunk number 67: Community.Rnw:819-824
 ###################################################
 # Increasing M
 TL84.increasing.M <- OrderCommunity(TL84, 'M', title='Increasing M')
@@ -529,7 +525,7 @@ TL84.increasing.TL <- OrderCommunity(TL84, new.order=new.order,
 
 
 ###################################################
-### code chunk number 68: Community.Rnw:837-840
+### code chunk number 68: Community.Rnw:833-836
 ###################################################
 getOption("SweaveHooks")[["fig"]]()
 par(mfrow=c(1,2))
@@ -538,7 +534,7 @@ PlotPredationMatrix(TL84.increasing.TL)
 
 
 ###################################################
-### code chunk number 69: Community.Rnw:845-849
+### code chunk number 69: Community.Rnw:841-845
 ###################################################
 SumDietGaps(TL84.increasing.M)
 SumDietGaps(TL84.increasing.TL)
@@ -547,7 +543,7 @@ SumConsumerGaps(TL84.increasing.TL)
 
 
 ###################################################
-### code chunk number 70: Community.Rnw:859-863
+### code chunk number 70: Community.Rnw:855-859
 ###################################################
 getOption("SweaveHooks")[["fig"]]()
 par(mfrow=c(1,2))
@@ -557,7 +553,7 @@ PlotPredationMatrix(res$reordered, main=SumDietGaps(res$reordered))
 
 
 ###################################################
-### code chunk number 71: Community.Rnw:873-881
+### code chunk number 71: Community.Rnw:869-877
 ###################################################
 getOption("SweaveHooks")[["fig"]]()
 par(mfrow=c(1,2))
@@ -571,7 +567,7 @@ PlotPredationMatrix(res$reordered,
 
 
 ###################################################
-### code chunk number 72: Community.Rnw:889-897
+### code chunk number 72: Community.Rnw:885-893
 ###################################################
 NumberOfNodes(TL84)
 IsolatedNodes(TL84)
@@ -584,7 +580,7 @@ NumberOfTrophicLinks(TL84.no.isolated)  # Number of trophic links unchanged
 
 
 ###################################################
-### code chunk number 73: Community.Rnw:901-929
+### code chunk number 73: Community.Rnw:897-925
 ###################################################
 NumberOfNodes(TL84)
 NumberOfTrophicLinks(TL84)
@@ -617,7 +613,7 @@ identical(TL84.ra, TL84.rc)  # TRUE
 
 
 ###################################################
-### code chunk number 74: Community.Rnw:941-949
+### code chunk number 74: Community.Rnw:937-945
 ###################################################
 # The behaviours of the different methods
 NumberOfNodes(TL84)         # 56 nodes in total
@@ -630,7 +626,7 @@ RemoveNodes(TL84, BasalNodes(TL84), method='cascade')   # The 6 isolated nodes r
 
 
 ###################################################
-### code chunk number 75: Community.Rnw:955-963
+### code chunk number 75: Community.Rnw:951-959
 ###################################################
 NumberOfNodes(TL84)
 Cannibals(TL84)         # 5 species
@@ -643,7 +639,7 @@ NumberOfTrophicLinks(TL84.no.cannibals)  # 5 fewer trophic links
 
 
 ###################################################
-### code chunk number 76: Community.Rnw:974-980
+### code chunk number 76: Community.Rnw:970-976
 ###################################################
 NumberOfNodes(TL84)
 
@@ -654,7 +650,7 @@ NumberOfNodes(TL84.lumped)              # ... and 22 nodes in the lumped web
 
 
 ###################################################
-### code chunk number 77: Community.Rnw:988-991
+### code chunk number 77: Community.Rnw:984-987
 ###################################################
 getOption("SweaveHooks")[["fig"]]()
 par(mfrow=c(1,2))
@@ -663,7 +659,7 @@ plot(TL84.lumped, xlim=range(Log10M(TL84)), ylim=range(Log10N(TL84)))
 
 
 ###################################################
-### code chunk number 78: Community.Rnw:999-1012
+### code chunk number 78: Community.Rnw:995-1008
 ###################################################
 length(which(IsIsolatedNode(TL84)))  # 6 isolated species
 IsolatedNodes(TL84)                  # Names of isolated nodes
@@ -681,14 +677,14 @@ IsolatedNodes(TL84.lumped)  # A single node
 
 
 ###################################################
-### code chunk number 79: Community.Rnw:1018-1020
+### code chunk number 79: Community.Rnw:1014-1016
 ###################################################
 lump <- NP(TL84, 'node')
 identical(TL84, LumpNodes(TL84, lump, title=CP(TL84, 'title')))
 
 
 ###################################################
-### code chunk number 80: Community.Rnw:1026-1044
+### code chunk number 80: Community.Rnw:1022-1040
 ###################################################
 data(YthanEstuary)
 
@@ -711,7 +707,7 @@ NumberOfNodes(YthanEstuary.lumped)  # 90
 
 
 ###################################################
-### code chunk number 81: Community.Rnw:1052-1062
+### code chunk number 81: Community.Rnw:1048-1058
 ###################################################
 getOption("SweaveHooks")[["fig"]]()
 # Plot the original and lumped communities
@@ -727,7 +723,7 @@ plot(YthanEstuary.lumped, highlight.nodes=c("Platichthys flesus",
 
 
 ###################################################
-### code chunk number 82: Community.Rnw:1069-1081
+### code chunk number 82: Community.Rnw:1065-1077
 ###################################################
 NPS(YthanEstuary.lumped)["Platichthys flesus", c('M','N')]
 
@@ -744,7 +740,7 @@ weighted.mean(M, N)
 
 
 ###################################################
-### code chunk number 83: Community.Rnw:1085-1092
+### code chunk number 83: Community.Rnw:1081-1088
 ###################################################
 YthanEstuary.lumped2 <- LumpNodes(YthanEstuary, lump, weight.by=NULL)
 NPS(YthanEstuary.lumped2)["Platichthys flesus", c('M','N')]

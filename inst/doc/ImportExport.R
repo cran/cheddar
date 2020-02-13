@@ -2,10 +2,8 @@
 ### Encoding: UTF-8
 
 ###################################################
-### code chunk number 1: ImportExport.Rnw:32-45
+### code chunk number 1: ImportExport.Rnw:32-43
 ###################################################
-options(warn=2)
-
 library(cheddar)
 
 # Makes copy-paste much less painful
@@ -20,45 +18,45 @@ options(SweaveHooks = list(fig=function() par(mgp=c(2.5,1,0),
 
 
 ###################################################
-### code chunk number 2: ImportExport.Rnw:68-69
+### code chunk number 2: ImportExport.Rnw:66-67
 ###################################################
 stream12 <- LoadCommunity('Stream12')
 
 
 ###################################################
-### code chunk number 3: ImportExport.Rnw:123-124
+### code chunk number 3: ImportExport.Rnw:121-122
 ###################################################
 cat(paste(paste(colnames(NPS(stream12)), collapse=' & '), '\\\\'))
 
 
 ###################################################
-### code chunk number 4: ImportExport.Rnw:127-129
+### code chunk number 4: ImportExport.Rnw:125-127
 ###################################################
 junk <- apply(NPS(stream12), 1, 
               function(row) cat(paste(paste(replace(row, which(is.na(row)), ''), collapse=' & '), ' \\\\ \n')))
 
 
 ###################################################
-### code chunk number 5: ImportExport.Rnw:165-166
+### code chunk number 5: ImportExport.Rnw:163-164
 ###################################################
 cat(paste(paste(colnames(TLPS(stream12)), collapse=' & '), '\\\\'))
 
 
 ###################################################
-### code chunk number 6: ImportExport.Rnw:169-171
+### code chunk number 6: ImportExport.Rnw:167-169
 ###################################################
 junk <- apply(TLPS(stream12), 1, 
               function(row) cat(paste(paste(row, collapse=' & '), ' \\\\ \n')))
 
 
 ###################################################
-### code chunk number 7: ImportExport.Rnw:189-190 (eval = FALSE)
+### code chunk number 7: ImportExport.Rnw:187-188 (eval = FALSE)
 ###################################################
 ## stream12 <- LoadCommunity('c:/Stream12')
 
 
 ###################################################
-### code chunk number 8: ImportExport.Rnw:193-196
+### code chunk number 8: ImportExport.Rnw:191-194
 ###################################################
 stream12
 NumberOfNodes(stream12)
@@ -66,7 +64,7 @@ NumberOfTrophicLinks(stream12)
 
 
 ###################################################
-### code chunk number 9: ImportExport.Rnw:199-207
+### code chunk number 9: ImportExport.Rnw:197-205
 ###################################################
 # Community properties
 CPS(stream12)
@@ -79,38 +77,38 @@ TLPS(stream12)
 
 
 ###################################################
-### code chunk number 10: ImportExport.Rnw:211-212
+### code chunk number 10: ImportExport.Rnw:209-210
 ###################################################
 SumBiomassByClass(stream12)
 
 
 ###################################################
-### code chunk number 11: ImportExport.Rnw:215-216
+### code chunk number 11: ImportExport.Rnw:213-214
 ###################################################
 SumBiomassByClass(stream12, class='functional.group')
 
 
 ###################################################
-### code chunk number 12: ImportExport.Rnw:221-222
+### code chunk number 12: ImportExport.Rnw:219-220
 ###################################################
 grassland <- LoadCollection('Grassland1994')
 
 
 ###################################################
-### code chunk number 13: ImportExport.Rnw:253-254 (eval = FALSE)
+### code chunk number 13: ImportExport.Rnw:251-252 (eval = FALSE)
 ###################################################
 ## grassland <- LoadCommunity('c:/Grassland1994')
 
 
 ###################################################
-### code chunk number 14: ImportExport.Rnw:256-258
+### code chunk number 14: ImportExport.Rnw:254-256
 ###################################################
 grassland
 length(grassland)
 
 
 ###################################################
-### code chunk number 15: ImportExport.Rnw:274-302 (eval = FALSE)
+### code chunk number 15: ImportExport.Rnw:272-300 (eval = FALSE)
 ###################################################
 ## install.packages('igraph')
 ## library(igraph)
@@ -143,20 +141,18 @@ length(grassland)
 
 
 ###################################################
-### code chunk number 16: ImportExport.Rnw:310-329 (eval = FALSE)
+### code chunk number 16: ImportExport.Rnw:308-325 (eval = FALSE)
 ###################################################
 ## install.packages("NetIndices")
 ## install.packages("foodweb", repos="http://R-Forge.R-project.org")
 ## 
 ## library(foodweb)    # Loads the dependency NetIndices
 ## 
-## data(TL84)
 ## TL84.ni <- PredationMatrix(TL84, weight='diet.fraction')
 ## 
 ## # Plot the predation matrix
 ## foodweb::imageweb(TL84.ni)
 ## 
-## data(Benguela)
 ## # Use diet fraction to weight network
 ## Benguela.ni <- PredationMatrix(Benguela, weight='diet.fraction')
 ## 
@@ -167,7 +163,7 @@ length(grassland)
 
 
 ###################################################
-### code chunk number 17: ImportExport.Rnw:337-355 (eval = FALSE)
+### code chunk number 17: ImportExport.Rnw:333-350 (eval = FALSE)
 ###################################################
 ## library(cheddar)
 ## 
@@ -185,18 +181,15 @@ length(grassland)
 ##                 row.names=FALSE, sep=' ')
 ## }
 ## 
-## data(TL84)
 ## ExportToNetwork3D(TL84, 'c:')
 
 
 ###################################################
-### code chunk number 18: ImportExport.Rnw:361-376 (eval = FALSE)
+### code chunk number 18: ImportExport.Rnw:356-369 (eval = FALSE)
 ###################################################
 ## install.packages("foodweb")
 ## 
 ## library(foodweb)
-## 
-## data(TL84)
 ## 
 ## # Write the predation matrix to a csv file in the format required by foodweb.
 ## write.table(PredationMatrix(TL84), 'TL84.foodweb.csv', row.names=FALSE, 

@@ -11,7 +11,6 @@ invertebrates: Appeltans et al (2012),
 mammals: Wilson and Reeder (2005), 
 phytoplankton: Guiry and Guiry (2012).
 }
-\usage{YthanEstuary}
 \format{\code{Community}.}
 \source{Hall and Raffaelli, 1991; Emmerson and Raffaelli, 2004.}
 \references{
@@ -29,7 +28,7 @@ strength and the stability of a real food web. Journal of Animal Ecology
 \bold{73}, 3, 399--409.
 
 Froese, R. and Pauly, D., eds. 2012. FishBase. World Wide Web electronic 
-publication. \url{www.fishbase.org}, version (08/2012).
+publication. \url{http://www.fishbase.org}, version (08/2012).
 
 Guiry, M.D. and Guiry, G.M. (2012) AlgaeBase. World-wide electronic 
 publication, National University of Ireland, Galway. 

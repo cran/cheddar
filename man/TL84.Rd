@@ -11,8 +11,6 @@ fish: Froese and Pauly (2012),
 invertebrates: Smith (2001), 
 phytoplankton: Guiry and Guiry (2012).
 }
-\usage{TL84
-TL86}
 
 \format{\code{Community} objects.}
 \source{Carpenter and Kitchell, 1996; Cohen et al, 2003; Johnsson et al 2005.}
@@ -26,7 +24,7 @@ of the National Academy of Sciences of the United States of America
 \bold{100}, 4, 1781--1786.
 
 Froese, R. and Pauly, D., eds. 2012. FishBase. World Wide Web electronic 
-publication. \url{www.fishbase.org}, version (08/2012).
+publication. \url{http://www.fishbase.org}, version (08/2012).
 
 Guiry, M.D. and Guiry, G.M. (2012) AlgaeBase. World-wide electronic 
 publication, National University of Ireland, Galway. 

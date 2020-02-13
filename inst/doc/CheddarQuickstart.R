@@ -2,10 +2,8 @@
 ### Encoding: UTF-8
 
 ###################################################
-### code chunk number 1: CheddarQuickstart.Rnw:32-45
+### code chunk number 1: CheddarQuickstart.Rnw:32-43
 ###################################################
-options(warn=2)
-
 library(cheddar)
 
 # Makes copy-paste much less painful
@@ -20,7 +18,7 @@ options(SweaveHooks = list(fig=function() par(mgp=c(2.5,1,0),
 
 
 ###################################################
-### code chunk number 2: CheddarQuickstart.Rnw:65-69
+### code chunk number 2: CheddarQuickstart.Rnw:63-67
 ###################################################
 data(TL84)      # Load the dataset
 print(TL84)     # A description of the data
@@ -29,7 +27,7 @@ NumberOfTrophicLinks(TL84)
 
 
 ###################################################
-### code chunk number 3: CheddarQuickstart.Rnw:73-77
+### code chunk number 3: CheddarQuickstart.Rnw:71-75
 ###################################################
 head(NPS(TL84, c('category', 
                  'Log10MNBiomass', 
@@ -38,14 +36,14 @@ head(NPS(TL84, c('category',
 
 
 ###################################################
-### code chunk number 4: CheddarQuickstart.Rnw:88-89
+### code chunk number 4: CheddarQuickstart.Rnw:86-87
 ###################################################
 getOption("SweaveHooks")[["fig"]]()
 PlotNPS(TL84, 'Log10M', 'Log10N')
 
 
 ###################################################
-### code chunk number 5: CheddarQuickstart.Rnw:98-102
+### code chunk number 5: CheddarQuickstart.Rnw:96-100
 ###################################################
 getOption("SweaveHooks")[["fig"]]()
 PlotNvM(TL84)
@@ -55,28 +53,28 @@ legend("topright", sapply(models, FormatLM), lty=1, col=colours)
 
 
 ###################################################
-### code chunk number 6: CheddarQuickstart.Rnw:108-109
+### code chunk number 6: CheddarQuickstart.Rnw:106-107
 ###################################################
 getOption("SweaveHooks")[["fig"]]()
 PlotNPS(TL84, 'Log10M', 'PreyAveragedTrophicLevel')
 
 
 ###################################################
-### code chunk number 7: CheddarQuickstart.Rnw:118-119
+### code chunk number 7: CheddarQuickstart.Rnw:116-117
 ###################################################
 getOption("SweaveHooks")[["fig"]]()
 PlotTLPS(TL84, 'resource.Log10M', 'consumer.Log10M')
 
 
 ###################################################
-### code chunk number 8: CheddarQuickstart.Rnw:127-128
+### code chunk number 8: CheddarQuickstart.Rnw:125-126
 ###################################################
 getOption("SweaveHooks")[["fig"]]()
 PlotPredationMatrix(TL84)
 
 
 ###################################################
-### code chunk number 9: CheddarQuickstart.Rnw:137-150
+### code chunk number 9: CheddarQuickstart.Rnw:135-148
 ###################################################
 data(pHWebs)
 CollectionCPS(pHWebs, 
