@@ -1,5 +1,4 @@
 ### R code from vignette source 'ImportExport.Rnw'
-### Encoding: UTF-8
 
 ###################################################
 ### code chunk number 1: ImportExport.Rnw:32-43

@@ -1,5 +1,4 @@
 ### R code from vignette source 'Community.Rnw'
-### Encoding: UTF-8
 
 ###################################################
 ### code chunk number 1: Community.Rnw:32-43

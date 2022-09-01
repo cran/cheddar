@@ -1,5 +1,4 @@
 ### R code from vignette source 'PlotsAndStats.Rnw'
-### Encoding: UTF-8
 
 ###################################################
 ### code chunk number 1: PlotsAndStats.Rnw:33-44

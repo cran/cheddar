@@ -1,5 +1,4 @@
 ### R code from vignette source 'CheddarQuickstart.Rnw'
-### Encoding: UTF-8
 
 ###################################################
 ### code chunk number 1: CheddarQuickstart.Rnw:32-43

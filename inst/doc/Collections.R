@@ -1,5 +1,4 @@
 ### R code from vignette source 'Collections.Rnw'
-### Encoding: UTF-8
 
 ###################################################
 ### code chunk number 1: Collections.Rnw:32-43
