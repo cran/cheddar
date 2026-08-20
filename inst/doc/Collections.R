@@ -457,5 +457,3 @@ for(community in TL)
             node.labels=map[NP(community, 'node')], xlim=c(-14, 0), 
             ylim=c(-2, 10))
 }
-
-

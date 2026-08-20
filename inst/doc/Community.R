@@ -748,5 +748,3 @@ NPS(YthanEstuary.lumped2)["Platichthys flesus", c('M','N')]
 mean(M)
 mean(N)
 
-
-

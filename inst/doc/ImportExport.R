@@ -199,5 +199,3 @@ length(grassland)
 ## # statistics and is required by the foodweb::plotweb() function.
 ## foodweb::analyse.single('TL84.foodweb.csv')
 ## foodweb::plotweb(cols=1:7, radii=7:1)           # A 3D plot
-
-

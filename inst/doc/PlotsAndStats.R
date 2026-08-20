@@ -728,5 +728,3 @@ print(round(res[1:6,],2))
 ###################################################
 res <- QuantitativeDescriptors(ChesapeakeBay, 'biomass.flow')
 print(round(res,3))
-
-
